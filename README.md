@@ -41,6 +41,7 @@ Luego, podrá crear una o más mascotas que se asociarán a su cuenta.
 ### 5. Sistema de mascotas:
 - Cada mascota tendrá un **color aleatorio** asignado a su arte ASCII al momento de su creación (ver [*punto 9*](#9-visualización-de-las-mascotas)).
 - **Tipos de mascotas disponibles:** Perro, Gato y Pájaro.
+- **Sexo de la mascota:** Macho o Hembra.
 - **Estadísticas:** Cada mascota contará con las siguientes estadísticas:
   - **Edad** *(cada día real equivale a un año).*
   - **Nutrición** *(valor entre 0 y 10).*
@@ -110,6 +111,7 @@ En el **menú de interacción de la mascota** se verá a la misma junto a sus es
 #### Ejemplo:
 - **Nombre:** JAGGER
 - **Tipo:** Gato
+- **Hembra**
 - **Edad:** 3 años
 - **Nutrición:** 🟧🟧🟧🟧⬜⬜⬜⬜⬜⬜
 - **Limpieza:** 🟨🟨🟨🟨🟨🟨🟨⬜⬜⬜
