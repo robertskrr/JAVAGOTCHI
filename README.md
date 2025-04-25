@@ -135,7 +135,7 @@ En el **menú de interacción de la mascota** se verá a la misma junto a sus es
 5. Volver al menú de usuario
    
 ### 11. Generación automática de registros
-**Todas las interacciones de cada usuario *(comer, jugar o limpiar)*** se registrarán de forma automática en la base de datos *, con fecha y hora exacta,* por si hay que realizar algún seguimiento concreto de las mismas.
+**Todas las interacciones de cada usuario *(comer, jugar o limpiar)*** se registrarán de forma automática en la base de datos, *con fecha y hora exacta,* por si hay que realizar algún seguimiento concreto de las mismas.
 
 ## 🕸️TECNOLOGÍAS UTILIZADAS🕸️
 - Java
