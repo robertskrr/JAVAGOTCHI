@@ -79,6 +79,7 @@ La **felicidad** es una estadística dinámica que refleja el estado anímico de
   - **Ejemplo de alerta de nutrición:** *"¡Tu mascota tiene mucha hambre! ¡Aliméntala pronto!"*
   - **Ejemplo de alerta de limpieza:** *"¡Tu mascota está muy sucia! ¡Báñala cuánto antes!"*
   - **Ejemplo de alerta de felicidad:** *"¡Tu mascota está muy triste! ¡Revisa qué es lo que necesita!”*
+  
 ### 9. Visualización de las mascotas
 Las mascotas se mostrarán de **manera gráfica** en la consola mediante dibujos hechos con **código ASCII**, lo que hace una experiencia más interactiva.
 #### Ejemplo:
@@ -132,6 +133,9 @@ En el **menú de interacción de la mascota** se verá a la misma junto a sus es
 3. Jugar
 4. Bañar.
 5. Volver al menú de usuario
+   
+### 11. Generación automática de registros
+**Todas las interacciones de cada usuario *(comer, jugar o limpiar)*** se registrarán de forma automática en la base de datos *, con fecha y hora exacta,* por si hay que realizar algún seguimiento concreto de las mismas.
 
 ## 🕸️TECNOLOGÍAS UTILIZADAS🕸️
 - Java
