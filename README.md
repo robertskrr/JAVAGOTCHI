@@ -13,17 +13,17 @@ de cada mascota según las interacciones, todo almacenado en una base de datos.
 - **Crear usuario**
 - **Listar usuarios** ordenados por *fecha de registro*
 - **Buscar usuario**
-- **Seleccionar usuario (accedes con el `userName` y la `contraseña` del usuario) --> Abre el submenú:** 
+- **Modificar tu usuario**
+- **Eliminar tu usuario** (eliminando a todas tus mascotas)
+- **Menú de mascotas (accedes con el `userName` y la `contraseña` del usuario) --> Abre el submenú:** 
   - **JUGAR** 
     1. Dentro del usuario seleccionado, podrás elegir una mascota específica
     2. Interactuar con la mascota seleccionada
          - Tendremos un submenú con las interacciones de la mascota (ver [*punto 10*](#10-representación-gráfica-de-estadísticas))
-  - **Listar mascotas** ordenadas por *nombre, edad o felicidad*
+  - **Listar mascotas** ordenadas por *nombre, tipo, edad o felicidad*
   - **Buscar mascota**
   - **Crear mascota**
   - **Eliminar mascota**
-  - **Modificar tu usuario**
-  - **Eliminar tu usuario** (eliminando a todas tus mascotas)
   - **Volver al menú principal**
 
 ### 2. Creación y eliminación de usuarios  
@@ -132,7 +132,7 @@ En el **menú de interacción de la mascota** se verá a la misma junto a sus es
 2. Alimentar.
 3. Jugar
 4. Bañar.
-5. Volver al menú de usuario
+5. Volver al menú de mascotas.
    
 ### 11. Generación automática de registros
 **Todas las interacciones de cada usuario *(comer, jugar o limpiar)*** se registrarán de forma automática en la base de datos, *con fecha y hora exacta,* por si hay que realizar algún seguimiento concreto de las mismas.
