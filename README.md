@@ -20,7 +20,7 @@ de cada mascota según las interacciones, todo almacenado en una base de datos.
     1. Dentro del usuario seleccionado, podrás elegir una mascota específica
     2. Interactuar con la mascota seleccionada
          - Tendremos un submenú con las interacciones de la mascota (ver [*punto 10*](#10-representación-gráfica-de-estadísticas))
-  - **Listar mascotas** ordenadas por *nombre, tipo, edad o felicidad*
+  - **Listar mascotas** ordenadas por *nombre, tipo o fecha de creación*
   - **Buscar mascota**
   - **Crear mascota**
   - **Eliminar mascota**
