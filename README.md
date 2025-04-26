@@ -48,7 +48,7 @@ Luego, podrá crear una o más mascotas que se asociarán a su cuenta.
   - **Limpieza** *(valor entre 0 y 10).*
   - **Felicidad** *(valor entre 0 y 10).*
 
-- Las estadísticas **Nutrición** y **Limpieza** se generarán **aleatoriamente** al crear la mascota.
+- Las estadísticas **Nutrición, Limpieza y Felicidad** se generarán **por defecto en 5** al crear la mascota.
 - La **Edad** aumentará con el tiempo desde la fecha de creación de la mascota (cada día que pase equivale a un año).
 - La **Felicidad** se actualizará en base a las interacciones del usuario y las otras estadísticas.
 
