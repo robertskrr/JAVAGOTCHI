@@ -31,7 +31,7 @@ Para crear un usuario, se deberán de poner los datos correspondientes, teniendo
 Para eliminar un usuario, el usuario debe confirmar su eliminación, lo cual implica también la eliminación de sus mascotas.
 
 ### 3. Opciones del usuario
-El usuario elegido puede **eliminar sus datos** de la aplicación, **modificarlos**, **ver a sus mascotas ordenadas** por *nombre, tipo, edad o felicidad*,
+El usuario elegido puede **eliminar sus datos** de la aplicación, **modificarlos**, **ver a sus mascotas ordenadas** por *nombre, tipo o fecha de creación*,
 **crear mascotas**, **seleccionar una mascota** para interactuar con ella o **eliminarla**. 
 
 ### 4. Creación de mascotas
