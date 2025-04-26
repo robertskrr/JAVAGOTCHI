@@ -11,7 +11,7 @@ de cada mascota según las interacciones, todo almacenado en una base de datos.
 
 ### 1. Menú principal con las siguientes opciones:
 - **Crear usuario**
-- **Listar usuarios** ordenados por *fecha de registro*
+- **Listar usuarios** ordenados por *userName o fecha de registro*
 - **Buscar usuario**
 - **Modificar tu usuario**
 - **Eliminar tu usuario** (eliminando a todas tus mascotas)
