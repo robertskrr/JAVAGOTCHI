@@ -5,7 +5,7 @@
 Desarrollar un **sistema de gestión de mascotas virtuales** que permita a los usuarios (dueños) 
 interactuar con sus mascotas a través de acciones como jugar, alimentar y bañar. El sistema
 gestionará el registro, consulta y eliminación de usuarios y mascotas, actualizando las estadísticas 
-de cada mascota según las interacciones, todo almacenado en una base de datos.
+de cada mascota según las interacciones, y guardando la información de cada interacción en fecha y hora exactas, todo almacenado en una base de datos.
 
 ## 🦴 FUNCIONALIDADES
 
