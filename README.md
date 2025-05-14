@@ -115,7 +115,7 @@ En el **menú de interacción de la mascota** se verá a la misma junto a sus es
 - **Hembra**
 - **Edad:** 3 años
 - **Nutrición:** 🟧🟧🟧🟧⬜⬜⬜⬜⬜⬜
-- **Limpieza:** 🟨🟨🟨🟨🟨🟨🟨⬜⬜⬜
+- **Limpieza:** 🟨🟨🟨🟨🟨🟨⬜⬜⬜⬜
 - **Felicidad:** 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜
 ```
                   ／＞　 フ
