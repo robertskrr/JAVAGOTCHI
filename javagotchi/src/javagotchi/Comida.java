@@ -9,6 +9,7 @@ public class Comida implements MostrarInformacion, Comparable<Comida> {
 	// Para verificar tamaño máx con respecto a la BD
 	private final int TAM_CODIGO = 20;
 	private final int TAM_DESCRIPCION = 200;
+	// Para verificar errores
 	private final int ESTADISTICA_DEFAULT = 0;
 
 	private String codigo;
