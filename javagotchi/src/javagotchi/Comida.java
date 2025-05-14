@@ -27,11 +27,11 @@ public class Comida implements MostrarInformacion, Comparable<Comida> {
 	 * @param felicidadAportada
 	 */
 	public Comida(String codigo, String descripcion, String tipoMascota, int nutricionAportada, int felicidadAportada) {
-		this.codigo = codigo;
-		this.descripcion = descripcion;
+		setCodigo(codigo);
+		setDescripcion(descripcion);
 		this.tipoMascota = tipoMascota;
-		this.nutricionAportada = nutricionAportada;
-		this.felicidadAportada = felicidadAportada;
+		setNutricionAportada(nutricionAportada);
+		setFelicidadAportada(felicidadAportada);
 	}
 
 	/**
@@ -84,12 +84,12 @@ public class Comida implements MostrarInformacion, Comparable<Comida> {
 	}
 
 	/**
-	 * Valida también que sea un número en el rango del 0 al 10
+	 * Valida también que sea un número positivo
 	 * 
 	 * @param nutricionAportada the nutricionAportada to set
 	 */
 	public void setNutricionAportada(int nutricionAportada) {
-		if (nutricionAportada < 0 || nutricionAportada > 10) {
+		if (nutricionAportada < 0) {
 			this.nutricionAportada = ESTADISTICA_DEFAULT;
 			return;
 		}
@@ -104,12 +104,12 @@ public class Comida implements MostrarInformacion, Comparable<Comida> {
 	}
 
 	/**
-	 * Valida también que sea un número en el rango del 0 al 10
+	 * Valida también que sea un número positivo
 	 * 
 	 * @param felicidadAportada the felicidadAportada to set
 	 */
 	public void setFelicidadAportada(int felicidadAportada) {
-		if (felicidadAportada < 0 || felicidadAportada > 10) {
+		if (felicidadAportada < 0) {
 			this.felicidadAportada = ESTADISTICA_DEFAULT;
 			return;
 		}
