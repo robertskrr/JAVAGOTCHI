@@ -201,9 +201,11 @@ public class Usuario implements MostrarInformacion, Comparable<Usuario> {
 	 * usuarios ordenados por 'X'
 	 */
 	public void mostrarInfoLista() {
+		System.out.println("-----------------------------------------------------------");
 		System.out.println("🔸 Username: " + this.username + " 🔸 Nombre: " + this.nombreCompleto + " 🔸 Email: "
 				+ this.email + " 🔸 Fecha Nacimiento: " + this.fechaNac + " 🔸 Ciudad: " + this.ciudad
 				+ " 🔸 Fecha Registro: " + this.fechaRegistro);
+		System.out.println("-----------------------------------------------------------");
 	}
 	
 	@Override
