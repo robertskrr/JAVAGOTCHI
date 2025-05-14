@@ -30,12 +30,12 @@ public class Juego implements MostrarInformacion, Comparable<Juego> {
 	 */
 	public Juego(String codigo, String descripcion, String tipoMascota, int nutricionDisminuida, int limpiezaDisminuida,
 			int felicidadAportada) {
-		this.codigo = codigo;
-		this.descripcion = descripcion;
+		setCodigo(codigo);
+		setDescripcion(descripcion);
 		this.tipoMascota = tipoMascota;
-		this.nutricionDisminuida = nutricionDisminuida;
-		this.limpiezaDisminuida = limpiezaDisminuida;
-		this.felicidadAportada = felicidadAportada;
+		setNutricionDisminuida(nutricionDisminuida);
+		setLimpiezaDisminuida(limpiezaDisminuida);
+		setFelicidadAportada(felicidadAportada);
 	}
 
 	/**
