@@ -15,7 +15,7 @@ public class ColorAnsi {
 	 * 
 	 * @param colores
 	 */
-	public ColorAnsi(Map<String, String> colores) {
+	public ColorAnsi() {
 		this.colores = new HashMap<>();
 		colores.put("ROJO", "\u001B[31m");
 		colores.put("VERDE", "\u001B[32m");
