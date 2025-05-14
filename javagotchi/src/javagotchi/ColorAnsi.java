@@ -35,7 +35,7 @@ public class ColorAnsi {
 	 * @return
 	 */
 	public String getAnsi(String colorNombre) {
-		return colores.getOrDefault(colorNombre, "\u001B[0m");
+		return colores.getOrDefault(colorNombre.toUpperCase(), "\u001B[0m");
 	}
 
 	/**
