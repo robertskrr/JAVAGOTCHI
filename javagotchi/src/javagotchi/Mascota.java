@@ -13,7 +13,7 @@ public abstract class Mascota {
 	// Para verificar tamaño máx con respecto a la BD
 	protected final int TAM_NOMBRE = 30;
 	// Para verificar errores o rebasamiento de datos
-	protected final int ESTADISTICA_DEFAULT = 5;
+	protected final int ESTADISTICA_MIN = 0;
 	protected final int ESTADISTICA_MAX = 10;
 
 	/**
@@ -44,12 +44,12 @@ public abstract class Mascota {
 	protected ColorAnsi colorAnsi;
 
 	/**
-	 * Constructor para recoger los datos de la BD
+	 * Constructor para recoger los datos de la BD, el tipo se asignará en las
+	 * clases hijas
 	 * 
 	 * @param id
 	 * @param nombre
 	 * @param usernameDuenio
-	 * @param tipo
 	 * @param color
 	 * @param sexo
 	 * @param fechaCreacion
@@ -57,12 +57,11 @@ public abstract class Mascota {
 	 * @param limpieza
 	 * @param felicidad
 	 */
-	public Mascota(int id, String nombre, String usernameDuenio, String tipo, String color, String sexo,
-			String fechaCreacion, int nutricion, int limpieza, int felicidad) {
+	public Mascota(int id, String nombre, String usernameDuenio, String color, String sexo, String fechaCreacion,
+			int nutricion, int limpieza, int felicidad) {
 		this.id = id;
 		setNombre(nombre);
 		this.usernameDuenio = usernameDuenio;
-		this.tipo = tipo; // CHECK ESTO CON LAS CLASES HIJAS!!
 		this.color = Color.valueOf(color.toUpperCase());
 		this.sexo = Sexo.valueOf(sexo.toUpperCase());
 		DateTimeFormatter f = DateTimeFormatter.ofPattern("yyyy-MM-dd");
@@ -80,15 +79,13 @@ public abstract class Mascota {
 	 * 
 	 * @param nombre
 	 * @param usernameDuenio
-	 * @param tipo
 	 * @param color
 	 * @param sexo
 	 * @param colorAnsi
 	 */
-	public Mascota(String nombre, String usernameDuenio, String tipo, String sexo) {
+	public Mascota(String nombre, String usernameDuenio, String sexo) {
 		setNombre(nombre);
 		this.usernameDuenio = usernameDuenio;
-		this.tipo = tipo; // CHECKEAR ESTO CON LAS CLASES HIJAS!!
 		// Inicializa la clase colorAnsi para usarla al ver a las mascotas con su color
 		// y generar el color aleatorio
 		this.colorAnsi = new ColorAnsi();
@@ -163,8 +160,11 @@ public abstract class Mascota {
 	 * @param nutricion the nutricion to set
 	 */
 	public void setNutricion(int nutricion) {
-		if (nutricion < 0 || nutricion > 10) {
-			this.nutricion = ESTADISTICA_DEFAULT;
+		if (nutricion < 0) {
+			this.nutricion = ESTADISTICA_MIN;
+			return;
+		} else if (nutricion > 10) {
+			this.nutricion = ESTADISTICA_MAX;
 			return;
 		}
 		this.nutricion = nutricion;
@@ -181,8 +181,11 @@ public abstract class Mascota {
 	 * @param limpieza the limpieza to set
 	 */
 	public void setLimpieza(int limpieza) {
-		if (limpieza < 0 || limpieza > 10) {
-			this.limpieza = ESTADISTICA_DEFAULT;
+		if (limpieza < 0) {
+			this.limpieza = ESTADISTICA_MIN;
+			return;
+		} else if (limpieza > 10) {
+			this.limpieza = ESTADISTICA_MAX;
 			return;
 		}
 		this.limpieza = limpieza;
@@ -199,8 +202,11 @@ public abstract class Mascota {
 	 * @param felicidad the felicidad to set
 	 */
 	public void setFelicidad(int felicidad) {
-		if (felicidad < 0 || felicidad > 10) {
-			this.felicidad = ESTADISTICA_DEFAULT;
+		if (felicidad < 0) {
+			this.felicidad = ESTADISTICA_MIN;
+			return;
+		} else if (felicidad > 10) {
+			this.felicidad = ESTADISTICA_MAX;
 			return;
 		}
 		this.felicidad = felicidad;
