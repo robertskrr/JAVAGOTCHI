@@ -416,7 +416,7 @@ public abstract class Mascota implements MostrarInformacion, Interacciones, Comp
 	 * Imprimimos varias líneas en blanco para simular la limpieza
 	 */
 	private void limpiarConsola() {
-		for (int i = 0; i < 30; i++) {
+		for (int i = 0; i < 50; i++) {
 			System.out.println();
 		}
 	}
