@@ -209,8 +209,8 @@ public class Usuario implements MostrarInformacion, Comparable<Usuario> {
 	}
 	
 	@Override
-	public int compareTo(Usuario otro) {
-		return this.username.compareTo(otro.getUsername());
+	public int compareTo(Usuario u) {
+		return this.username.compareTo(u.getUsername());
 	}
 
 }
