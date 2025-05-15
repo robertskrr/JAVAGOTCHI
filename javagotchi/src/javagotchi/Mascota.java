@@ -239,15 +239,15 @@ public abstract class Mascota implements MostrarInformacion, Interacciones, Comp
 				limpiarConsola();
 				System.out.println(frames[0]);
 				Thread.sleep(450); // espera 450 milisegundos
-				
+
 				limpiarConsola();
 				System.out.println(frames[1]);
-				Thread.sleep(450); // espera 450 milisegundos				
+				Thread.sleep(450); // espera 450 milisegundos
 				limpiarConsola();
-				
+
 				// Resetea el color del texto al final del bucle
 				if (i == 4) {
-					System.out.println(colorAnsi.getAnsi("RESET")); 
+					System.out.println(colorAnsi.getAnsi("RESET"));
 				}
 			}
 		} catch (InterruptedException e) {
@@ -258,7 +258,7 @@ public abstract class Mascota implements MostrarInformacion, Interacciones, Comp
 	/**
 	 * Recoge el ASCII de cada tipo de mascota con su color
 	 */
-	public void getAscii() {
+	private void getAscii() {
 		System.out.println(frames[0] + colorAnsi.getAnsi("RESET"));
 	}
 
@@ -340,43 +340,47 @@ public abstract class Mascota implements MostrarInformacion, Interacciones, Comp
 	 */
 	public void checkEstadisticas() {
 		if (this.nutricion == ESTADISTICA_MIN) {
-			System.err.println("¡Tu mascota tiene mucha hambre! ¡Aliméntala pronto!");
+			System.err.println("¡" + this.nombre + " tiene mucha hambre! ¡Aliméntala pronto!");
 		}
 
 		if (this.limpieza == ESTADISTICA_MIN) {
-			System.err.println("¡Tu mascota está muy sucia! ¡Báñala cuánto antes!");
+			System.err.println("¡" + this.nombre + " está muy sucia! ¡Báñala cuánto antes!");
 		}
 
 		checkFelicidad();
 		if (this.felicidad == ESTADISTICA_MIN) {
-			System.err.println("¡Tu mascota está muy triste! ¡Revisa qué es lo que necesita!");
+			System.err.println("¡" + this.nombre + " está muy triste! ¡Revisa qué es lo que necesita!");
 		}
 	}
 
 	@Override
 	public void comer(Comida comida) {
+		if (this.nutricion == ESTADISTICA_MAX) {
+			System.out.println(colorAnsi.getAnsi("VERDE") + "¡" + this.nombre
+					+ " no quiere comer más! ¡Ha comido lo suficiente!" + colorAnsi.getAnsi("RESET"));
+			return;
+		}
 		// Depende del hambre que tenga aumenta la felicidad a parte de la que aporta la
 		// comida
-		int newFelicidad = 0;
+		int aumentoFelicidad = comida.getFelicidadAportada();
+		int newNutricion = this.nutricion + comida.getNutricionAportada();
+
+		// Si tiene mucha hambre se suma un bonus
 		if (this.nutricion < 4) {
-			newFelicidad += 2;
+			aumentoFelicidad += 2;
 		} else if (this.nutricion < 8) {
-			newFelicidad++;
+			aumentoFelicidad += 1;
 		}
 
-		// Actualiza las estadísticas con lo que aporta cada comida
-		int newNutricion = this.nutricion + comida.getNutricionAportada();
 		setNutricion(newNutricion);
-
-		newFelicidad += this.felicidad + comida.getFelicidadAportada();
-		setFelicidad(newFelicidad);
+		setFelicidad(this.felicidad + aumentoFelicidad);
 	}
 
 	@Override
 	public void jugar(Juego juego) {
 		// Si tiene mucha hambre no querrá jugar
 		if (this.nutricion == 0) {
-			System.err.println("¡Tu mascota tiene mucha hambre! No tiene ganas de jugar.");
+			System.err.println("¡" + this.nombre + " tiene mucha hambre! No tiene ganas de jugar.");
 			return;
 		}
 		// Actualiza las estadísticas con lo que aporta y resta cada juego
@@ -392,6 +396,11 @@ public abstract class Mascota implements MostrarInformacion, Interacciones, Comp
 
 	@Override
 	public void limpiar() {
+		if (this.limpieza == ESTADISTICA_MAX) {
+			System.out.println(colorAnsi.getAnsi("VERDE") + "¡" + this.nombre
+					+ " está muy limpia! ¡No es necesario bañarse ahora mismo!" + colorAnsi.getAnsi("RESET"));
+			return;
+		}
 		// Depende del nivel de limpieza que tenía aumenta más o menos la felicidad
 		if (this.limpieza < 4) {
 			setFelicidad(this.felicidad + 4);
