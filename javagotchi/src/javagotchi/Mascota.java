@@ -67,9 +67,9 @@ public abstract class Mascota implements MostrarInformacion, Interacciones, Comp
 		this.sexo = Sexo.valueOf(sexo.toUpperCase());
 		DateTimeFormatter f = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 		this.fechaCreacion = LocalDate.parse(fechaCreacion, f);
-		this.nutricion = nutricion;
-		this.limpieza = limpieza;
-		this.felicidad = felicidad;
+		setNutricion(nutricion);
+		setLimpieza(limpieza);
+		setFelicidad(felicidad);
 		// Inicializa la clase colorAnsi para usarla al ver a las mascotas con su color
 		this.colorAnsi = new ColorAnsi();
 	}
@@ -278,7 +278,18 @@ public abstract class Mascota implements MostrarInformacion, Interacciones, Comp
 	 * Muestra su información de forma más detallada, para mostrar su ASCII y
 	 * estadísticas
 	 */
-	public abstract void mostrarInfoDetallado();
+	public void mostrarInfoDetallado() {
+		System.out.println(colorAnsi.getAnsi("NARANJA") + "⭐⭐⭐ MASCOTA DE '" + this.usernameDuenio.toUpperCase() + "' ⭐⭐⭐"
+				+ colorAnsi.getAnsi("RESET"));
+		System.out.println("⭐ NOMBRE: " + this.nombre);
+		System.out.println("⭐ TIPO: " + this.tipo);
+		System.out.println("⭐ " + this.sexo);
+		System.out.println("⭐ EDAD: " + this.edad());
+		System.out.println("⭐ NUTRICIÓN: " + mostrarEstadistica(this.nutricion));
+		System.out.println("⭐ LIMPIEZA: " + mostrarEstadistica(this.limpieza));
+		System.out.println("⭐ FELICIDAD: " + mostrarEstadistica(this.felicidad) + "\n");
+		getAscii();
+	}
 
 	/**
 	 * Chequea el decremento de los niveles de felicidad con respecto a las otras
@@ -315,16 +326,30 @@ public abstract class Mascota implements MostrarInformacion, Interacciones, Comp
 
 	@Override
 	public void comer(Comida comida) {
+		// Depende del hambre que tenga aumenta la felicidad a parte de la que aporta la
+		// comida
+		int newFelicidad = 0;
+		if (this.nutricion < 4) {
+			newFelicidad += 2;
+		} else if (this.nutricion < 8) {
+			newFelicidad++;
+		}
+
 		// Actualiza las estadísticas con lo que aporta cada comida
 		int newNutricion = this.nutricion + comida.getNutricionAportada();
 		setNutricion(newNutricion);
 
-		int newFelicidad = this.felicidad + comida.getFelicidadAportada();
+		newFelicidad += this.felicidad + comida.getFelicidadAportada();
 		setFelicidad(newFelicidad);
 	}
 
 	@Override
 	public void jugar(Juego juego) {
+		// Si tiene mucha hambre no querrá jugar
+		if (this.nutricion == 0) {
+			System.err.println("¡Tu mascota tiene mucha hambre! No tiene ganas de jugar.");
+			return;
+		}
 		// Actualiza las estadísticas con lo que aporta y resta cada juego
 		int newNutricion = this.nutricion - juego.getNutricionDisminuida();
 		setNutricion(newNutricion);
@@ -353,7 +378,7 @@ public abstract class Mascota implements MostrarInformacion, Interacciones, Comp
 	 * Imprimimos varias líneas en blanco para simular la limpieza
 	 */
 	protected void limpiarConsola() {
-		for (int i = 0; i < 20; i++) {
+		for (int i = 0; i < 30; i++) {
 			System.out.println();
 		}
 	}
