@@ -207,4 +207,15 @@ public class UsuarioDAO {
 		}
 		return listaUsuarios;
 	}
+
+	/**
+	 * Finaliza la conexión con la BD
+	 */
+	public void cerrarConexion() {
+		try {
+			conexion.close();
+		} catch (SQLException e) {
+			System.err.println("Error al cerrar la conexión: " + e.getMessage());
+		}
+	}
 }
