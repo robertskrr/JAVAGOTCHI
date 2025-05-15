@@ -68,7 +68,7 @@ La **felicidad** es una estadística dinámica que refleja el estado anímico de
 #### 🔼 ¿Cómo se incrementa la felicidad?
 - **Jugar con la mascota**: cada tipo de juego puede aumentar la felicidad en mayor o menor medida.
 - **Alimentarla**: si la mascota tiene hambre y, dependiendo del hambre que tenga, alimentarla con el tipo de comida adecuado aumentará su felicidad.
-- **Bañarla**: también mejora su estado anímico.
+- **Bañarla**: también mejora su estado anímico y, dependiendo del nivel de suciedad, aumentará más o menos.
 
 #### 🔽 ¿Cuándo disminuye la felicidad?
 - Si la mascota está **muy sucia** *(limpieza baja)*.
