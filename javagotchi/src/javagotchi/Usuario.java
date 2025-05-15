@@ -202,9 +202,9 @@ public class Usuario implements MostrarInformacion, Comparable<Usuario> {
 	 */
 	public void mostrarInfoLista() {
 		System.out.println("-----------------------------------------------------------");
-		System.out.println("🔸 Username: " + this.username + " 🔸 Nombre: " + this.nombreCompleto + " 🔸 Email: "
-				+ this.email + " 🔸 Fecha Nacimiento: " + this.fechaNac + " 🔸 Ciudad: " + this.ciudad
-				+ " 🔸 Fecha Registro: " + this.fechaRegistro);
+		System.out.println("🔸 USERNAME: " + this.username + " 🔸 NOMBRE: " + this.nombreCompleto + " 🔸 EMAIL: "
+				+ this.email + " 🔸 FECHA NACIMIENTO: " + this.fechaNac + " 🔸 CIUDAD: " + this.ciudad
+				+ " 🔸 FECHA REGISTRO: " + this.fechaRegistro);
 		System.out.println("-----------------------------------------------------------");
 	}
 	
