@@ -229,7 +229,7 @@ public abstract class Mascota implements MostrarInformacion, Interacciones, Comp
 	public abstract void mostrarMovimiento();
 
 	/**
-	 * Recoge el ASCII de cada tipo de mascota
+	 * Recoge el ASCII de cada tipo de mascota con su color
 	 */
 	public abstract void getAscii();
 
