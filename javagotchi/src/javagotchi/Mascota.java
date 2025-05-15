@@ -313,7 +313,7 @@ public abstract class Mascota implements MostrarInformacion, Interacciones, Comp
 		System.out.println("⭐ NOMBRE: " + this.nombre);
 		System.out.println("⭐ TIPO: " + this.tipo);
 		System.out.println("⭐ " + this.sexo);
-		System.out.println("⭐ EDAD: " + this.edad());
+		System.out.println("⭐ EDAD: " + this.edad() + " AÑOS");
 		System.out.println("⭐ NUTRICIÓN: " + mostrarEstadistica(this.nutricion));
 		System.out.println("⭐ LIMPIEZA: " + mostrarEstadistica(this.limpieza));
 		System.out.println("⭐ FELICIDAD: " + mostrarEstadistica(this.felicidad) + "\n");
