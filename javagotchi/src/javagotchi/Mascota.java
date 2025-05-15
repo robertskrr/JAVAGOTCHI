@@ -43,6 +43,7 @@ public abstract class Mascota implements MostrarInformacion, Interacciones, Comp
 	protected int felicidad;
 
 	protected ColorAnsi colorAnsi;
+	protected String[] frames = new String[2];
 
 	/**
 	 * Constructor para recoger los datos de la BD, el tipo se asignará en las
@@ -224,14 +225,42 @@ public abstract class Mascota implements MostrarInformacion, Interacciones, Comp
 	}
 
 	/**
+	 * Carga los frames en el array
+	 */
+	protected abstract void cargarFrames();
+
+	/**
 	 * Muestra el movimiento de la mascota
 	 */
-	public abstract void mostrarMovimiento();
+	public void mostrarMovimiento() {
+		try {
+			Thread.sleep(600); // Pequeña pausa antes de mostrar el movimiento
+			for (int i = 0; i < 5; i++) {
+				limpiarConsola();
+				System.out.println(frames[0]);
+				Thread.sleep(450); // espera 450 milisegundos
+				
+				limpiarConsola();
+				System.out.println(frames[1]);
+				Thread.sleep(450); // espera 450 milisegundos				
+				limpiarConsola();
+				
+				// Resetea el color del texto al final del bucle
+				if (i == 4) {
+					System.out.println(colorAnsi.getAnsi("RESET")); 
+				}
+			}
+		} catch (InterruptedException e) {
+			System.err.println("ERROR AL MOSTRAR MOVIMIENTO DE MASCOTA.");
+		}
+	}
 
 	/**
 	 * Recoge el ASCII de cada tipo de mascota con su color
 	 */
-	public abstract void getAscii();
+	public void getAscii() {
+		System.out.println(frames[0] + colorAnsi.getAnsi("RESET"));
+	}
 
 	/**
 	 * Devuelve la representación gráfica de cada estadística
@@ -279,8 +308,8 @@ public abstract class Mascota implements MostrarInformacion, Interacciones, Comp
 	 * estadísticas
 	 */
 	public void mostrarInfoDetallado() {
-		System.out.println(colorAnsi.getAnsi("NARANJA") + "⭐⭐⭐ MASCOTA DE '" + this.usernameDuenio.toUpperCase() + "' ⭐⭐⭐"
-				+ colorAnsi.getAnsi("RESET"));
+		System.out.println(colorAnsi.getAnsi("NARANJA") + "⭐⭐⭐ MASCOTA DE '" + this.usernameDuenio.toUpperCase()
+				+ "' ⭐⭐⭐" + colorAnsi.getAnsi("RESET"));
 		System.out.println("⭐ NOMBRE: " + this.nombre);
 		System.out.println("⭐ TIPO: " + this.tipo);
 		System.out.println("⭐ " + this.sexo);
@@ -377,7 +406,7 @@ public abstract class Mascota implements MostrarInformacion, Interacciones, Comp
 	/**
 	 * Imprimimos varias líneas en blanco para simular la limpieza
 	 */
-	protected void limpiarConsola() {
+	private void limpiarConsola() {
 		for (int i = 0; i < 30; i++) {
 			System.out.println();
 		}

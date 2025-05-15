@@ -20,8 +20,6 @@ public class Perro extends Mascota {
 					+ "──────███████▄────────\r\n"
 					+ "──────█▀█▀█████───────\r\n"
 					+ "─────▄█▄█─▄████▀▄▄────";
-	
-	private String[] frames;
 
 	/**
 	 * Constructor completo para recoger datos de la BD, asigna 
@@ -58,41 +56,10 @@ public class Perro extends Mascota {
 		cargarFrames();
 	}
 	
-	/**
-	 * Carga los frames en el array
-	 */
-	private void cargarFrames() {
+	@Override
+	protected void cargarFrames() {
 		frames[0] = colorAnsi.getAnsi(String.valueOf(this.color)) + ASCII_1;
 		frames[1] = colorAnsi.getAnsi(String.valueOf(this.color)) + ASCII_2;
-	}
-	
-	@Override
-	public void mostrarMovimiento() {
-		try {
-			Thread.sleep(600); // Pequeña pausa antes de mostrar el movimiento
-			for (int i = 0; i < 5; i++) {
-				limpiarConsola();
-				System.out.println(frames[0]);
-				Thread.sleep(450); // espera 450 milisegundos
-				
-				limpiarConsola();
-				System.out.println(frames[1]);
-				Thread.sleep(450); // espera 450 milisegundos				
-				limpiarConsola();
-				
-				// Resetea el color del texto al final del bucle
-				if (i == 4) {
-					System.out.println(colorAnsi.getAnsi("RESET")); 
-				}
-			}
-		} catch (InterruptedException e) {
-			System.err.println("ERROR AL MOSTRAR MOVIMIENTO DE MASCOTA.");
-		}
-	}
-	
-	@Override
-	public void getAscii() {
-		System.out.println(frames[0] + colorAnsi.getAnsi("RESET"));
 	}
 	
 }
