@@ -3,13 +3,14 @@ package javagotchi;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
+import java.util.Objects;
 
 /**
  * @author Robert
  * @version 1.0
  * @since 14/05
  */
-public abstract class Mascota implements MostrarInformacion, Interacciones {
+public abstract class Mascota implements MostrarInformacion, Interacciones, Comparable<Mascota> {
 	// Para verificar tamaño máx con respecto a la BD
 	protected final int TAM_NOMBRE = 30;
 	// Para verificar errores o rebasamiento de datos
@@ -356,4 +357,27 @@ public abstract class Mascota implements MostrarInformacion, Interacciones {
 			System.out.println();
 		}
 	}
+
+	@Override
+	public int compareTo(Mascota m) {
+		return this.nombre.compareTo(m.getNombre());
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(id);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Mascota other = (Mascota) obj;
+		return id == other.id;
+	}
+
 }
