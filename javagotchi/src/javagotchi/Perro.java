@@ -38,7 +38,6 @@ public class Perro extends Mascota {
 			int nutricion, int limpieza, int felicidad) {
 		super(id, nombre, usernameDuenio, color, sexo, fechaCreacion, nutricion, limpieza, felicidad);
 		this.tipo = "PERRO";
-		this.frames = new String[2];
 		cargarFrames();
 	}
 
@@ -52,7 +51,6 @@ public class Perro extends Mascota {
 	public Perro(String nombre, String usernameDuenio, String sexo) {
 		super(nombre, usernameDuenio, sexo);
 		this.tipo = "PERRO";
-		this.frames = new String[2];
 		cargarFrames();
 	}
 	
