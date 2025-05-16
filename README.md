@@ -25,6 +25,7 @@ de cada mascota según las interacciones, y guardando la información de cada in
   - **Crear mascota**
   - **Eliminar mascota**
   - **Volver al menú principal**
+- **SALIR**
 
 ### 2. Creación y eliminación de usuarios  
 Para crear un usuario, se deberán de poner los datos correspondientes, teniendo en cuenta que el `userName` es único y no puede repetirse.
