@@ -150,7 +150,8 @@ public class Juego implements MostrarInformacion, Comparable<Juego> {
 	public void mostrarInfo() {
 		System.out.println("-----------------------------------------------------------");
 		System.out.println("🥎 CÓDIGO: " + this.codigo + " 🥎 DESCRIPCIÓN: " + this.descripcion + " 🥎 NUTRICIÓN: -"
-				+ this.nutricionDisminuida + " 🥎 LIMPIEZA: -" + " 🥎 FELICIDAD: +" + this.felicidadAportada);
+				+ this.nutricionDisminuida + " 🥎 LIMPIEZA: -" + this.limpiezaDisminuida + " 🥎 FELICIDAD: +"
+				+ this.felicidadAportada);
 		System.out.println("-----------------------------------------------------------");
 	}
 
