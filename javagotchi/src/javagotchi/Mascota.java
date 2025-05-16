@@ -403,7 +403,25 @@ public abstract class Mascota implements MostrarInformacion, Comparable<Mascota>
 	}
 
 	/**
-	 * Interacción de limpiar a la mascota
+	 * Devuelve la felicidad aportada para registrarlo en la BD
+	 */
+	public int felicidadAportadaLimpieza() {
+		int felicidadAportada = 0;
+
+		// Depende del nivel de limpieza que tenía aumenta más o menos la felicidad
+		if (this.limpieza < 4) {
+			felicidadAportada = 4;
+		} else if (this.limpieza < 8) {
+			felicidadAportada = 3;
+		} else {
+			felicidadAportada = 2;
+		}
+
+		return felicidadAportada;
+	}
+
+	/**
+	 * Método para limpiar a la mascota
 	 */
 	public void limpiar() {
 		if (this.limpieza == ESTADISTICA_MAX) {
@@ -411,14 +429,7 @@ public abstract class Mascota implements MostrarInformacion, Comparable<Mascota>
 					+ " está muy limpia! ¡No es necesario bañarse ahora mismo!" + colorAnsi.getAnsi("RESET"));
 			return;
 		}
-		// Depende del nivel de limpieza que tenía aumenta más o menos la felicidad
-		if (this.limpieza < 4) {
-			setFelicidad(this.felicidad + 4);
-		} else if (this.limpieza < 8) {
-			setFelicidad(this.felicidad + 3);
-		} else {
-			setFelicidad(this.felicidad + 2);
-		}
+		setFelicidad(this.felicidad + felicidadAportadaLimpieza());
 		setLimpieza(ESTADISTICA_MAX);
 	}
 
