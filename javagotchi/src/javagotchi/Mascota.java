@@ -10,7 +10,7 @@ import java.util.Objects;
  * @version 1.0
  * @since 14/05
  */
-public abstract class Mascota implements MostrarInformacion, Interacciones, Comparable<Mascota> {
+public abstract class Mascota implements MostrarInformacion, Comparable<Mascota> {
 	// Para verificar tamaño máx con respecto a la BD
 	protected final int TAM_NOMBRE = 30;
 	// Para verificar errores o rebasamiento de datos
@@ -353,7 +353,11 @@ public abstract class Mascota implements MostrarInformacion, Interacciones, Comp
 		}
 	}
 
-	@Override
+	/**
+	 * Interacción de alimentar a la mascota
+	 * 
+	 * @param comida
+	 */
 	public void comer(Comida comida) {
 		if (this.nutricion == ESTADISTICA_MAX) {
 			System.out.println(colorAnsi.getAnsi("VERDE") + "¡" + this.nombre
@@ -376,7 +380,11 @@ public abstract class Mascota implements MostrarInformacion, Interacciones, Comp
 		setFelicidad(this.felicidad + aumentoFelicidad);
 	}
 
-	@Override
+	/**
+	 * Interacción de jugar con la mascota
+	 * 
+	 * @param juego
+	 */
 	public void jugar(Juego juego) {
 		// Si tiene mucha hambre no querrá jugar
 		if (this.nutricion == 0) {
@@ -394,7 +402,9 @@ public abstract class Mascota implements MostrarInformacion, Interacciones, Comp
 		setFelicidad(newFelicidad);
 	}
 
-	@Override
+	/**
+	 * Interacción de limpiar a la mascota
+	 */
 	public void limpiar() {
 		if (this.limpieza == ESTADISTICA_MAX) {
 			System.out.println(colorAnsi.getAnsi("VERDE") + "¡" + this.nombre
