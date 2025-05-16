@@ -413,8 +413,11 @@ public abstract class Mascota implements MostrarInformacion, Comparable<Mascota>
 			felicidadAportada = 4;
 		} else if (this.limpieza < 8) {
 			felicidadAportada = 3;
-		} else {
+		} else if (this.limpieza < 10) {
 			felicidadAportada = 2;
+		} else {
+			felicidadAportada = 0; // Si está totalmente limpio no aporta felicidad, esto es para la BD
+									// principalmente
 		}
 
 		return felicidadAportada;
@@ -426,7 +429,7 @@ public abstract class Mascota implements MostrarInformacion, Comparable<Mascota>
 	public void limpiar() {
 		if (this.limpieza == ESTADISTICA_MAX) {
 			System.out.println(colorAnsi.getAnsi("VERDE") + "¡" + this.nombre
-					+ " está muy limpia! ¡No es necesario bañarse ahora mismo!" + colorAnsi.getAnsi("RESET"));
+					+ " está muy limpio! ¡No es necesario bañarse ahora mismo!" + colorAnsi.getAnsi("RESET"));
 			return;
 		}
 		setFelicidad(this.felicidad + felicidadAportadaLimpieza());
