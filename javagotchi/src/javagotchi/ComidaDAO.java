@@ -42,7 +42,7 @@ public class ComidaDAO {
 			con = DriverManager.getConnection(url, USUARIO, PASSWORD);
 			System.out.println(color.getAnsi("VERDE") + "¡COMIDAS CARGADAS!" + color.getAnsi("RESET"));
 		} catch (SQLException e) {
-			System.err.println("ERROR AL CARGAR LOS USUARIOS DE LA BD.");
+			System.err.println("ERROR AL CARGAR LAS COMIDAS DE LA BD.");
 		} catch (InterruptedException e) {
 			System.out.println("ERROR: " + e.getMessage());
 		}
