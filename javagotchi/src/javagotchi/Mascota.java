@@ -308,7 +308,7 @@ public abstract class Mascota implements MostrarInformacion, Interacciones, Comp
 	 * estadísticas
 	 */
 	public void mostrarInfoDetallado() {
-		System.out.println(colorAnsi.getAnsi("NARANJA") + "⭐⭐⭐ MASCOTA DE '" + this.usernameDuenio.toUpperCase()
+		System.out.println("\n" + colorAnsi.getAnsi("NARANJA") + "⭐⭐⭐ MASCOTA DE '" + this.usernameDuenio.toUpperCase()
 				+ "' ⭐⭐⭐" + colorAnsi.getAnsi("RESET"));
 		System.out.println("⭐ NOMBRE: " + this.nombre);
 		System.out.println("⭐ TIPO: " + this.tipo);
