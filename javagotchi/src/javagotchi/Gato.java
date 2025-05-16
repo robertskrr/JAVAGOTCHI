@@ -44,7 +44,7 @@ public class Gato extends Mascota {
 	public Gato(int id, String nombre, String usernameDuenio, String color, String sexo, String fechaCreacion,
 			int nutricion, int limpieza, int felicidad) {
 		super(id, nombre, usernameDuenio, color, sexo, fechaCreacion, nutricion, limpieza, felicidad);
-		this.tipo = "GATO";
+		this.tipo = "Gato";
 		cargarFrames();
 	}
 	
