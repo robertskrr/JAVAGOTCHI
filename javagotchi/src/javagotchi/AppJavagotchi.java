@@ -54,8 +54,11 @@ public class AppJavagotchi {
 				case 5:
 					eliminarUsuario();
 					break;
-				default:
+				case 6:
+					accesoMenuMascotas();
 					break;
+				default:
+					System.err.println("☹ERROR☹. Opción no válida.");
 				}
 			} catch (InputMismatchException e) {
 				System.err.println("☹ERROR☹. Introduce un número por favor.");
@@ -318,6 +321,142 @@ public class AppJavagotchi {
 			return;
 		}
 		bdUsuarios.delete(usernameDelete);
+	}
+
+	/**
+	 * Accede al menú pidiendo username y contraseña
+	 */
+	public static void accesoMenuMascotas() {
+		System.out.println(color.getAnsi("NARANJA") + "\n🐶 ACCESO A MENÚ DE MASCOTAS 🐶" + color.getAnsi("RESET"));
+		System.out.print(color.getAnsi("AMARILLO") + "⭐ Introduce tu username: " + color.getAnsi("RESET"));
+		String username = sc.nextLine();
+		if (!existeUsuario(username)) {
+			return;
+		}
+		Usuario usuario = bdUsuarios.read(username);
+		System.out.print(color.getAnsi("AMARILLO") + "⭐ Introduce tu contraseña: " + color.getAnsi("RESET"));
+		String contrasenia = sc.nextLine();
+		if (!contraseniaCorrecta(usuario, contrasenia)) {
+			return;
+		}
+		int opcion = 0;
+		do {
+			try {
+				mostrarMenuMascotas();
+				opcion = sc.nextInt();
+				sc.nextLine(); // Limpiar buffer
+				switch (opcion) {
+				case 1:
+
+					break;
+				case 2:
+					listarMascotas(usuario);
+					break;
+
+				default:
+					System.err.println("☹ERROR☹. Opción no válida.");
+				}
+			} catch (InputMismatchException e) {
+				System.err.println("☹ERROR☹. Introduce un número por favor.");
+				sc.nextLine(); // Limpiar buffer
+			}
+
+		} while (opcion != 6);
+
+	}
+
+	/**
+	 * Muestra el menú del usuario con respecto a sus mascotas
+	 */
+	public static void mostrarMenuMascotas() {
+		System.out.println(color.getAnsi("CIAN") + "\n  __  __    _    ____   ____ ___ _____  _    ____  \r\n"
+				+ " |  \\/  |  / \\  / ___| / ___/ _ \\_   _|/ \\  / ___| \r\n"
+				+ " | |\\/| | / _ \\ \\___ \\| |  | | | || | / _ \\ \\___ \\ \r\n"
+				+ " | |  | |/ ___ \\ ___) | |__| |_| || |/ ___ \\ ___) |\r\n"
+				+ " |_|  |_/_/   \\_\\____/ \\____\\___/ |_/_/   \\_\\____/ \r\n"
+				+ "                                                   " + color.getAnsi("RESET"));
+		System.out.println(color.getAnsi("AMARILLO") + "⭐⭐ ELIGE UNA OPCIÓN ⭐⭐" + color.getAnsi("RESET"));
+		System.out.println("1. 🐱 JUGAR 🐱");
+		System.out.println("2. 🐥 Listar mascotas 🐥");
+		System.out.println("3. 🔎 Buscar mascota 🔎");
+		System.out.println("4. 🐶 Crear mascota 🐶");
+		System.out.println("5. ☹ Eliminar mascota ☹");
+		System.out.println("6. 🚫 Volver al menú principal 🚫");
+	}
+
+	/**
+	 * Muestra las mascotas en el orden asignado
+	 */
+	public static void listarMascotas(Usuario usuario) {
+		try {
+			System.out.println(color.getAnsi("NARANJA") + "\n🐥 MASCOTAS DE " + usuario.getUsername().toUpperCase()
+					+ " 🐥" + color.getAnsi("RESET"));
+			System.out.println("\t1. Ordenadas por nombre.");
+			System.out.println("\t2. Ordenadas por tipo.");
+			System.out.println("\t3. Ordenadas por fecha de creación.");
+			System.out.print(color.getAnsi("AMARILLO") + "⭐ ELIGE EL ORDEN: " + color.getAnsi("RESET"));
+			int opcionOrden = sc.nextInt();
+			sc.nextLine();
+			switch (opcionOrden) {
+			case 1:
+				System.out.println(
+						color.getAnsi("NARANJA") + "🐥 MASCOTAS ORDENADAS POR NOMBRE 🐥" + color.getAnsi("RESET"));
+				listaMascotasOrdenNombre(bdMascotas.listaMascotas(usuario.getUsername())).forEach(Mascota::mostrarInfo);
+				break;
+			case 2:
+				System.out.println(
+						color.getAnsi("NARANJA") + "🐥 MASCOTAS ORDENADAS POR TIPO 🐥" + color.getAnsi("RESET"));
+				listaMascotasOrdenTipo(bdMascotas.listaMascotas(usuario.getUsername())).forEach(Mascota::mostrarInfo);
+				break;
+			case 3:
+				System.out.println(color.getAnsi("NARANJA") + "🐥 MASCOTAS ORDENADAS POR FECHA DE CREACIÓN 🐥"
+						+ color.getAnsi("RESET"));
+				listaMascotasOrdenFechaCreacion(bdMascotas.listaMascotas(usuario.getUsername()))
+						.forEach(Mascota::mostrarInfo);
+				break;
+			default:
+				System.err.println("☹ERROR☹. Opción de orden no válida.");
+			}
+		} catch (InputMismatchException e) {
+			System.err.println("☹ERROR☹. Introduce un número por favor.");
+			sc.nextLine(); // Limpia buffer
+			return;
+		}
+	}
+
+	/**
+	 * Devuelve la lista de usuarios ordenadas por username
+	 * 
+	 * @param listaOriginal
+	 * @return
+	 */
+	public static List<Mascota> listaMascotasOrdenNombre(ArrayList<Mascota> listaOriginal) {
+		return listaOriginal.stream().sorted().toList();
+	}
+
+	/**
+	 * Devuelve la lista de usuarios ordenadas por tipo, cuando sean iguales ordena
+	 * por nombre
+	 * 
+	 * @param listaOriginal
+	 * @return
+	 */
+	public static List<Mascota> listaMascotasOrdenTipo(ArrayList<Mascota> listaOriginal) {
+		return listaOriginal.stream()
+				.sorted(Comparator.comparing(Mascota::getTipo).thenComparing(Comparator.naturalOrder())).toList();
+	}
+
+	/**
+	 * Devuelve la lista de usuarios ordenadas por fecha de creacion, cuando sean
+	 * iguales ordena por nombre
+	 * 
+	 * @param listaOriginal
+	 * @return
+	 */
+	public static List<Mascota> listaMascotasOrdenFechaCreacion(ArrayList<Mascota> listaOriginal) {
+		return listaOriginal.stream()
+				.sorted(Comparator.comparing(Mascota::getFechaCreacion).thenComparing(Comparator.naturalOrder()))
+				.toList();
 	}
 
 }
