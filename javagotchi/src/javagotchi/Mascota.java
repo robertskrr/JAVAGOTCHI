@@ -310,7 +310,7 @@ public abstract class Mascota implements MostrarInformacion, Comparable<Mascota>
 	public void mostrarInfoDetallado() {
 		System.out.println("\n" + colorAnsi.getAnsi("NARANJA") + "⭐⭐⭐ MASCOTA DE '" + this.usernameDuenio.toUpperCase()
 				+ "' ⭐⭐⭐" + colorAnsi.getAnsi("RESET"));
-		System.out.println("⭐ NOMBRE: " + this.nombre);
+		System.out.println("⭐ NOMBRE: " + this.nombre.toUpperCase());
 		System.out.println("⭐ TIPO: " + this.tipo);
 		System.out.println("⭐ " + this.sexo);
 		System.out.println("⭐ EDAD: " + this.edad() + " AÑOS");
