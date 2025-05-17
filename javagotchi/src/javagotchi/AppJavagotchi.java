@@ -47,7 +47,13 @@ public class AppJavagotchi {
 					break;
 				case 3:
 					buscarUsuario();
-
+					break;
+				case 4:
+					modificarUsuario();
+					break;
+				case 5:
+					eliminarUsuario();
+					break;
 				default:
 					break;
 				}
@@ -86,7 +92,7 @@ public class AppJavagotchi {
 	 */
 	public static void crearUsuario() {
 		try {
-			System.out.println(color.getAnsi("NARANJA") + "👤 CREACIÓN DE USUARIO 👤" + color.getAnsi("RESET"));
+			System.out.println(color.getAnsi("NARANJA") + "\n👤 CREACIÓN DE USUARIO 👤" + color.getAnsi("RESET"));
 			System.out.print(color.getAnsi("AMARILLO") + "⭐ Username: " + color.getAnsi("RESET"));
 			String username = sc.nextLine();
 			System.out.print(color.getAnsi("AMARILLO") + "⭐ Contraseña: " + color.getAnsi("RESET"));
@@ -120,7 +126,7 @@ public class AppJavagotchi {
 	 */
 	public static void listaUsuarios() {
 		try {
-			System.out.println(color.getAnsi("NARANJA") + "👥 USUARIOS DE JAVAGOTCHI 👥" + color.getAnsi("RESET"));
+			System.out.println(color.getAnsi("NARANJA") + "\n👥 USUARIOS DE JAVAGOTCHI 👥" + color.getAnsi("RESET"));
 			System.out.println("\t1. Ordenados por username.");
 			System.out.println("\t2. Ordenados por fecha de registro.");
 			System.out.print(color.getAnsi("AMARILLO") + "⭐ ELIGE EL ORDEN: " + color.getAnsi("RESET"));
@@ -168,19 +174,138 @@ public class AppJavagotchi {
 	}
 
 	/**
+	 * Chequea si el usuario introducido existe en la BD
+	 * 
+	 * @param username
+	 * @return
+	 */
+	public static boolean existeUsuario(String username) {
+		if (bdUsuarios.read(username) == null) {
+			System.err.println("☹ No hay ninguna coincidencia con el username '" + username + "' ☹");
+			return false;
+		}
+		return true;
+	}
+
+	/**
 	 * Busca a un usuario en la BD
 	 */
 	public static void buscarUsuario() {
-		System.out.println(color.getAnsi("NARANJA") + "🔎 BÚSQUEDA DE USUARIO 🔎" + color.getAnsi("RESET"));
+		System.out.println(color.getAnsi("NARANJA") + "\n🔎 BÚSQUEDA DE USUARIO 🔎" + color.getAnsi("RESET"));
 		System.out.print(color.getAnsi("AMARILLO") + "⭐ Introduce el username a buscar: " + color.getAnsi("RESET"));
 		String usernameBusca = sc.nextLine();
 		Usuario usuarioBusca = bdUsuarios.read(usernameBusca);
-		if (usuarioBusca == null) {
-			System.err.println("☹ No hay ninguna coincidencia con el username '" + usernameBusca + "' ☹");
+		if (!existeUsuario(usernameBusca)) {
 			return;
 		}
 		System.out.println(color.getAnsi("VERDE") + "⭐ !USUARIO ENCONTRADO! ⭐" + color.getAnsi("RESET"));
-		usuarioBusca.mostrarInfo();	
+		usuarioBusca.mostrarInfo();
+	}
+
+	/**
+	 * Modifica los datos del usuario
+	 */
+	public static void modificarUsuario() {
+		System.out.println(color.getAnsi("NARANJA") + "\n⚙ MODIFICACIÓN DE USUARIO ⚙" + color.getAnsi("RESET"));
+		System.out.print(color.getAnsi("AMARILLO") + "⭐ Introduce el username del usuario a modificar: "
+				+ color.getAnsi("RESET"));
+		String usernameOriginal = sc.nextLine();
+		if (!existeUsuario(usernameOriginal)) {
+			return;
+		}
+		Usuario usuarioOriginal = bdUsuarios.read(usernameOriginal);
+		// Pide autenticación del usuario
+		System.out.print(color.getAnsi("AMARILLO") + "⭐ Introduce la contraseña actual para poder modificar: "
+				+ color.getAnsi("RESET"));
+		String contrasenia = sc.nextLine();
+		if (!contrasenia.equals(usuarioOriginal.getContrasenia())) {
+			System.err.println("☹ ¡CONTRASEÑA INCORRECTA! ☹");
+			return;
+		}
+		try {
+			System.out.println(color.getAnsi("VERDE") + "✅ USUARIO AUTENTICADO ✅" + color.getAnsi("RESET"));
+			System.out.println(color.getAnsi("AMARILLO")
+					+ "⭐ INTRODUCE LOS DATOS A MODIFICAR (O INTRO SI NO DESEA MODIFICAR EL CAMPO) ⭐"
+					+ color.getAnsi("RESET"));
+			System.out.print(color.getAnsi("AMARILLO") + "⭐ Nuevo username: " + color.getAnsi("RESET"));
+			String usernameNew = sc.nextLine();
+			// Si el campo está vacio recupera los datos del usuario original
+			if (usernameNew.isEmpty()) {
+				usernameNew = usuarioOriginal.getUsername();
+			}
+			System.out.print(color.getAnsi("AMARILLO") + "⭐ Nueva contraseña: " + color.getAnsi("RESET"));
+			String contraseniaNew = sc.nextLine();
+			if (contraseniaNew.isEmpty()) {
+				contraseniaNew = usuarioOriginal.getContrasenia();
+			}
+			System.out.print(color.getAnsi("AMARILLO") + "⭐ Nuevo nombre completo: " + color.getAnsi("RESET"));
+			String nombreCompletoNew = sc.nextLine();
+			if (nombreCompletoNew.isEmpty()) {
+				nombreCompletoNew = usuarioOriginal.getNombreCompleto();
+			}
+			System.out.print(color.getAnsi("AMARILLO") + "⭐ Nuevo email: " + color.getAnsi("RESET"));
+			String emailNew = sc.nextLine();
+			if (emailNew.isEmpty()) {
+				emailNew = usuarioOriginal.getEmail();
+			}
+			System.out.print(
+					color.getAnsi("AMARILLO") + "⭐ Nueva fecha de nacimiento (yyyy-MM-dd): " + color.getAnsi("RESET"));
+			String fechaNacNew = sc.nextLine();
+			if (fechaNacNew.isEmpty()) {
+				fechaNacNew = String.valueOf(usuarioOriginal.getFechaNac());
+			}
+			System.out.print(color.getAnsi("AMARILLO") + "⭐ Nueva ciudad: " + color.getAnsi("RESET"));
+			String ciudadNew = sc.nextLine();
+			if (ciudadNew.isEmpty()) {
+				ciudadNew = usuarioOriginal.getCiudad();
+			}
+
+			Usuario usuarioUpdate = new Usuario(usernameNew, contraseniaNew, nombreCompletoNew, emailNew, fechaNacNew,
+					ciudadNew);
+
+			if (bdUsuarios.listaUsuarios().contains(usuarioUpdate)) {
+				System.err.println("☹ERROR☹. Ya existe otro usuario con el mismo username.");
+				return;
+			}
+			bdUsuarios.update(usuarioUpdate, usernameOriginal);
+
+		} catch (DateTimeParseException e) {
+			System.err.println("☹ERROR☹. Fecha no válida --> (yyyy-MM-dd)");
+			return;
+		}
+
+	}
+
+	/**
+	 * Elimina al usuario y sus mascotas de la BD
+	 */
+	public static void eliminarUsuario() {
+		System.out.println(color.getAnsi("NARANJA") + "\n☹ ELIMINACIÓN DE USUARIO ☹" + color.getAnsi("RESET"));
+		System.out.print(color.getAnsi("AMARILLO") + "⭐ Introduce tu username: "
+				+ color.getAnsi("RESET"));
+		String usernameDelete = sc.nextLine();
+		if (!existeUsuario(usernameDelete)) {
+			return;
+		}
+		Usuario usuarioDelete = bdUsuarios.read(usernameDelete);
+		// Pide autenticación del usuario
+		System.out.print(
+				color.getAnsi("AMARILLO") + "⭐ Introduce tu contraseña para poder eliminar: " + color.getAnsi("RESET"));
+		String contrasenia = sc.nextLine();
+		if (!contrasenia.equals(usuarioDelete.getContrasenia())) {
+			System.err.println("☹ ¡CONTRASEÑA INCORRECTA! ☹");
+			return;
+		}
+		System.out.println(color.getAnsi("CIAN")
+				+ "¿ESTÁS SEGURO DE ELIMINAR TU USUARIO? ESTO IMPLICA TAMBIÉN BORRAR A TUS MASCOTAS.");
+		System.out.print(color.getAnsi("AMARILLO")
+				+ "⭐ Introduce la contraseña nuevamente para confirmar la eliminación: " + color.getAnsi("RESET"));
+		contrasenia = sc.nextLine();
+		if (!contrasenia.equals(usuarioDelete.getContrasenia())) {
+			System.err.println("🙂 ¡ELIMINACIÓN CANCELADA! 🙂");
+			return;
+		}
+		bdUsuarios.delete(usernameDelete);
 	}
 
 }
