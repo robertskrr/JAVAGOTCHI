@@ -170,7 +170,7 @@ public class UsuarioDAO {
 				System.err.println("ERROR. El username' " + username + "' no existe en la BD.");
 				return;
 			}
-			System.out.println(color.getAnsi("VERDE") + "¡USUARIO ELIMINADO CON ÉXITO!" + color.getAnsi("RESET"));
+			System.out.println(color.getAnsi("VERDE") + "☹ ¡USUARIO ELIMINADO CON ÉXITO! ☹" + color.getAnsi("RESET"));
 		} catch (SQLException e) {
 			System.err.println("Error al eliminar el usuario: " + e.getMessage());
 		} catch (InterruptedException e) {
