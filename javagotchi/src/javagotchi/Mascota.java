@@ -299,8 +299,10 @@ public abstract class Mascota implements MostrarInformacion, Comparable<Mascota>
 
 	@Override
 	public void mostrarInfo() {
+		System.out.println("========================================================================================");
 		System.out.println("⭐ ID: " + this.id + " ⭐ NOMBRE: " + this.nombre + " ⭐ TIPO: " + this.tipo + " ⭐ COLOR: "
 				+ this.color + " ⭐ SEXO: " + this.sexo + " ⭐ FECHA CREACIÓN: " + this.fechaCreacion);
+		System.out.println("========================================================================================");
 	}
 
 	/**
