@@ -342,7 +342,8 @@ public class AppJavagotchi {
 		int opcion = 0;
 		do {
 			try {
-				mostrarMenuMascotas();
+				mostrarMenuMascotas(usuario);
+				System.out.print(color.getAnsi("AMARILLO") + "⭐ OPCIÓN: " + color.getAnsi("RESET"));
 				opcion = sc.nextInt();
 				sc.nextLine(); // Limpiar buffer
 				switch (opcion) {
@@ -351,6 +352,12 @@ public class AppJavagotchi {
 					break;
 				case 2:
 					listarMascotas(usuario);
+					break;
+				case 3:
+					buscarMascota(usuario);
+					break;
+				case 4:
+					crearMascota(usuario);
 					break;
 
 				default:
@@ -368,13 +375,15 @@ public class AppJavagotchi {
 	/**
 	 * Muestra el menú del usuario con respecto a sus mascotas
 	 */
-	public static void mostrarMenuMascotas() {
+	public static void mostrarMenuMascotas(Usuario usuario) {
 		System.out.println(color.getAnsi("CIAN") + "\n  __  __    _    ____   ____ ___ _____  _    ____  \r\n"
 				+ " |  \\/  |  / \\  / ___| / ___/ _ \\_   _|/ \\  / ___| \r\n"
 				+ " | |\\/| | / _ \\ \\___ \\| |  | | | || | / _ \\ \\___ \\ \r\n"
 				+ " | |  | |/ ___ \\ ___) | |__| |_| || |/ ___ \\ ___) |\r\n"
-				+ " |_|  |_/_/   \\_\\____/ \\____\\___/ |_/_/   \\_\\____/ \r\n"
+				+ " |_|  |_/_/   \\_\\____/ \\____\\___/ |_/_/   \\_\\____/ \r"
 				+ "                                                   " + color.getAnsi("RESET"));
+		System.out.println(color.getAnsi("CIAN") + "👤 Sesión iniciada de '" + usuario.getUsername() + "' 👤"
+				+ color.getAnsi("RESET"));
 		System.out.println(color.getAnsi("AMARILLO") + "⭐⭐ ELIGE UNA OPCIÓN ⭐⭐" + color.getAnsi("RESET"));
 		System.out.println("1. 🐱 JUGAR 🐱");
 		System.out.println("2. 🐥 Listar mascotas 🐥");
@@ -382,6 +391,13 @@ public class AppJavagotchi {
 		System.out.println("4. 🐶 Crear mascota 🐶");
 		System.out.println("5. ☹ Eliminar mascota ☹");
 		System.out.println("6. 🚫 Volver al menú principal 🚫");
+	}
+
+	/**
+	 * Muestra el menú de interacción de cada mascota
+	 */
+	public static void mostrarMenuInteraccionMascotas(Mascota mascota) {
+
 	}
 
 	/**
@@ -461,6 +477,81 @@ public class AppJavagotchi {
 		return listaOriginal.stream()
 				.sorted(Comparator.comparing(Mascota::getFechaCreacion).thenComparing(Comparator.naturalOrder()))
 				.toList();
+	}
+
+	/**
+	 * Busca a la mascota del usuario
+	 */
+	public static void buscarMascota(Usuario usuario) {
+		if (bdMascotas.listaMascotas(usuario.getUsername()).isEmpty()) {
+			System.err.println("☹AÚN NO HAY MASCOTAS REGISTRADAS☹");
+			return;
+		}
+		System.out.println(color.getAnsi("NARANJA") + "\n🔎 BÚSQUEDA DE MASCOTA 🔎" + color.getAnsi("RESET"));
+		System.out.print(color.getAnsi("AMARILLO") + "⭐ Introduce el nombre a buscar: " + color.getAnsi("RESET"));
+		String nombreBusca = sc.nextLine();
+		// Devuelve una lista por si hay más de una mascota del usuario con el mismo
+		// nombre
+		ArrayList<Mascota> mascotasCoincidencia = bdMascotas.buscarMascotas(nombreBusca, usuario.getUsername());
+		if (mascotasCoincidencia.isEmpty()) {
+			System.err.println("☹NO HAY NINGUNA COINCIDENCIA CON EL NOMBRE DE LA MASCOTA '" + nombreBusca + "'☹");
+			return;
+		}
+		System.out.println(color.getAnsi("VERDE") + "⭐ ¡MASCOTA ENCONTRADA! ⭐" + color.getAnsi("RESET"));
+		mascotasCoincidencia.stream().forEach(Mascota::mostrarInfo);
+	}
+
+	/**
+	 * Creación de mascota del usuario
+	 */
+	public static void crearMascota(Usuario usuario) {
+		try {
+			System.out.println(color.getAnsi("NARANJA") + "\n🐶 CREACIÓN DE MASCOTA 🐶" + color.getAnsi("RESET"));
+			Mascota mascota;
+			System.out.print(color.getAnsi("AMARILLO") + "⭐ Nombre de la mascota: " + color.getAnsi("RESET"));
+			String nombre = sc.nextLine();
+			System.out.print(color.getAnsi("AMARILLO") + "⭐ Tipo de mascota (1. Perro, 2. Gato, 3. Pájaro): "
+					+ color.getAnsi("RESET"));
+			int opcionTipo = sc.nextInt();
+			sc.nextLine(); // Limpia buffer
+			System.out.print(color.getAnsi("AMARILLO") + "⭐ Sexo de la mascota (1. Macho, 2. Hembra): "
+					+ color.getAnsi("RESET"));
+			int opcionSexo = sc.nextInt();
+			sc.nextLine(); // Limpia buffer
+			String sexo;
+			switch (opcionSexo) {
+			case 1:
+				sexo = "MACHO";
+				break;
+			case 2:
+				sexo = "HEMBRA";
+				break;
+			default:
+				System.err.println("☹ERROR☹. Opción de sexo no válida.");
+				return;
+			}
+			// Creamos la mascota por el tipo elegido
+			switch (opcionTipo) {
+			case 1:
+				mascota = new Perro(nombre, usuario.getUsername(), sexo);
+				break;
+			case 2:
+				mascota = new Gato(nombre, usuario.getUsername(), sexo);
+				break;
+			case 3:
+				mascota = new Pajaro(nombre, usuario.getUsername(), sexo);
+				break;
+			default:
+				System.err.println("☹ERROR☹. Opción de tipo no válida.");
+				return;
+			}
+			// Inserta la mascota en la BD
+			bdMascotas.create(mascota);
+		} catch (InputMismatchException e) {
+			System.err.println("☹ERROR☹. Introduce un número por favor.");
+			sc.nextLine(); // Limpia buffer
+			return;
+		}
 	}
 
 }
