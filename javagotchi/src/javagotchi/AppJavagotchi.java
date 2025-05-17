@@ -203,6 +203,21 @@ public class AppJavagotchi {
 	}
 
 	/**
+	 * Autenticación de usuario
+	 * 
+	 * @param username
+	 * @param contrasenia
+	 * @return
+	 */
+	public static boolean contraseniaCorrecta(Usuario usuario, String contrasenia) {
+		if (!usuario.getContrasenia().equals(contrasenia)) {
+			System.err.println("☹ ¡CONTRASEÑA INCORRECTA! ☹");
+			return false;
+		}
+		return true;
+	}
+
+	/**
 	 * Modifica los datos del usuario
 	 */
 	public static void modificarUsuario() {
@@ -218,8 +233,7 @@ public class AppJavagotchi {
 		System.out.print(color.getAnsi("AMARILLO") + "⭐ Introduce la contraseña actual para poder modificar: "
 				+ color.getAnsi("RESET"));
 		String contrasenia = sc.nextLine();
-		if (!contrasenia.equals(usuarioOriginal.getContrasenia())) {
-			System.err.println("☹ ¡CONTRASEÑA INCORRECTA! ☹");
+		if (!contraseniaCorrecta(usuarioOriginal, contrasenia)) {
 			return;
 		}
 		try {
@@ -281,8 +295,7 @@ public class AppJavagotchi {
 	 */
 	public static void eliminarUsuario() {
 		System.out.println(color.getAnsi("NARANJA") + "\n☹ ELIMINACIÓN DE USUARIO ☹" + color.getAnsi("RESET"));
-		System.out.print(color.getAnsi("AMARILLO") + "⭐ Introduce tu username: "
-				+ color.getAnsi("RESET"));
+		System.out.print(color.getAnsi("AMARILLO") + "⭐ Introduce tu username: " + color.getAnsi("RESET"));
 		String usernameDelete = sc.nextLine();
 		if (!existeUsuario(usernameDelete)) {
 			return;
@@ -292,8 +305,7 @@ public class AppJavagotchi {
 		System.out.print(
 				color.getAnsi("AMARILLO") + "⭐ Introduce tu contraseña para poder eliminar: " + color.getAnsi("RESET"));
 		String contrasenia = sc.nextLine();
-		if (!contrasenia.equals(usuarioDelete.getContrasenia())) {
-			System.err.println("☹ ¡CONTRASEÑA INCORRECTA! ☹");
+		if (!contraseniaCorrecta(usuarioDelete, contrasenia)) {
 			return;
 		}
 		System.out.println(color.getAnsi("CIAN")
@@ -301,7 +313,7 @@ public class AppJavagotchi {
 		System.out.print(color.getAnsi("AMARILLO")
 				+ "⭐ Introduce la contraseña nuevamente para confirmar la eliminación: " + color.getAnsi("RESET"));
 		contrasenia = sc.nextLine();
-		if (!contrasenia.equals(usuarioDelete.getContrasenia())) {
+		if (!contraseniaCorrecta(usuarioDelete, contrasenia)) {
 			System.err.println("🙂 ¡ELIMINACIÓN CANCELADA! 🙂");
 			return;
 		}
