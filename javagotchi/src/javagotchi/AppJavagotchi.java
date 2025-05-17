@@ -388,6 +388,10 @@ public class AppJavagotchi {
 	 * Muestra las mascotas en el orden asignado
 	 */
 	public static void listarMascotas(Usuario usuario) {
+		if (bdMascotas.listaMascotas(usuario.getUsername()).isEmpty()) {
+			System.err.println("☹AÚN NO HAY MASCOTAS REGISTRADAS☹");
+			return;
+		}
 		try {
 			System.out.println(color.getAnsi("NARANJA") + "\n🐥 MASCOTAS DE " + usuario.getUsername().toUpperCase()
 					+ " 🐥" + color.getAnsi("RESET"));
