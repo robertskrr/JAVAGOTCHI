@@ -139,7 +139,7 @@ En el **menú de interacción de la mascota** se verá a la misma junto a sus es
 **Todas las interacciones de cada usuario *(comer, jugar o limpiar)*** se registrarán de forma automática en la base de datos, *con fecha y hora exacta,* por si hay que realizar algún seguimiento concreto de las mismas.
 
 ## 🕸️TECNOLOGÍAS UTILIZADAS🕸️
-- Java
+- Java *(JDK 21)*
 - MySQL
 - JDBC
 - JUnit
