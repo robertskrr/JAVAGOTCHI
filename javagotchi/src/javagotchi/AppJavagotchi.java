@@ -657,6 +657,11 @@ public class AppJavagotchi {
 		}
 		try {
 			System.out.println(color.getAnsi("NARANJA") + "\n☹ ELIMINACIÓN DE MASCOTA ☹" + color.getAnsi("RESET"));
+			System.out.println(color.getAnsi("AMARILLO") + "⭐ Mostrando a tus mascotas..." + color.getAnsi("RESET"));
+			// Muestra a tus mascotas en orden de creación para seleccionar el ID
+			// correspondiente
+			listaMascotasOrdenFechaCreacion(bdMascotas.listaMascotas(usuario.getUsername()))
+					.forEach(Mascota::mostrarInfo);
 			System.out.print(color.getAnsi("AMARILLO") + "⭐ ID de la mascota a eliminar (o -1 para volver atrás): "
 					+ color.getAnsi("RESET"));
 			int idEliminar = sc.nextInt();
