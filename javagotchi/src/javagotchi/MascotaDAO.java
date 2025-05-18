@@ -295,7 +295,7 @@ public class MascotaDAO {
 			PreparedStatement sentencia = conexion.prepareStatement(sql);
 			sentencia.setString(1, comida.getCodigo().toUpperCase());
 			sentencia.setInt(2, mascota.getId());
-			System.out.print(color.getAnsi("NARANJA") + "GUARDANDO DATOS..");
+			System.out.print(color.getAnsi("NARANJA") + "\nGUARDANDO DATOS..");
 			Thread.sleep(500);
 			System.out.print("....... \n" + color.getAnsi("RESET"));
 			sentencia.executeUpdate();
@@ -318,7 +318,7 @@ public class MascotaDAO {
 			PreparedStatement sentencia = conexion.prepareStatement(sql);
 			sentencia.setString(1, juego.getCodigo().toUpperCase());
 			sentencia.setInt(2, mascota.getId());
-			System.out.print(color.getAnsi("NARANJA") + "GUARDANDO DATOS..");
+			System.out.print(color.getAnsi("NARANJA") + "\nGUARDANDO DATOS..");
 			Thread.sleep(500);
 			System.out.print("....... \n" + color.getAnsi("RESET"));
 			sentencia.executeUpdate();
@@ -340,7 +340,7 @@ public class MascotaDAO {
 			PreparedStatement sentencia = conexion.prepareStatement(sql);
 			sentencia.setInt(1, mascota.getId());
 			sentencia.setInt(2, mascota.felicidadAportadaLimpieza());
-			System.out.print(color.getAnsi("NARANJA") + "GUARDANDO DATOS..");
+			System.out.print(color.getAnsi("NARANJA") + "\nGUARDANDO DATOS..");
 			Thread.sleep(500);
 			System.out.print("....... \n" + color.getAnsi("RESET"));
 			sentencia.executeUpdate();
