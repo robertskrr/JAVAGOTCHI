@@ -293,7 +293,7 @@ public class MascotaDAO {
 		String sql = "INSERT INTO REGISTRO_ALIMENTACION(cod_comida, id_mascota) VALUES (?, ?)";
 		try {
 			PreparedStatement sentencia = conexion.prepareStatement(sql);
-			sentencia.setString(1, comida.getCodigo());
+			sentencia.setString(1, comida.getCodigo().toUpperCase());
 			sentencia.setInt(2, mascota.getId());
 			System.out.print(color.getAnsi("NARANJA") + "GUARDANDO DATOS..");
 			Thread.sleep(500);
@@ -316,7 +316,7 @@ public class MascotaDAO {
 		String sql = "INSERT INTO REGISTRO_JUEGO(cod_juego, id_mascota) VALUES (?, ?)";
 		try {
 			PreparedStatement sentencia = conexion.prepareStatement(sql);
-			sentencia.setString(1, juego.getCodigo());
+			sentencia.setString(1, juego.getCodigo().toUpperCase());
 			sentencia.setInt(2, mascota.getId());
 			System.out.print(color.getAnsi("NARANJA") + "GUARDANDO DATOS..");
 			Thread.sleep(500);
