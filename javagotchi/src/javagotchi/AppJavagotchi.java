@@ -722,8 +722,9 @@ public class AppJavagotchi {
 		}
 		// Mensaje de proceso de comer
 		try {
-			System.out.print(color.getAnsi("CIAN") + mascota.getNombre() + color.getAnsi("NARANJA") + " está comiendo '"
-					+ comida.getDescripcion() + "'...");
+			System.out.print(color.getAnsi(String.valueOf(mascota.getColor())) + mascota.getNombre()
+					+ color.getAnsi("NARANJA") + " está comiendo " + color.getAnsi("VERDE") + comida.getDescripcion()
+					+ color.getAnsi("NARANJA") + "...");
 			Thread.sleep(500);
 			System.out.print(".....");
 			Thread.sleep(500);
@@ -769,8 +770,9 @@ public class AppJavagotchi {
 		}
 		// Mensaje de proceso de jugar
 		try {
-			System.out.print(color.getAnsi("CIAN") + mascota.getNombre() + color.getAnsi("NARANJA") + " está jugando '"
-					+ juego.getDescripcion() + "'...");
+			System.out.print(color.getAnsi(String.valueOf(mascota.getColor())) + mascota.getNombre()
+					+ color.getAnsi("NARANJA") + " está jugando " + color.getAnsi("VERDE") + juego.getDescripcion()
+					+ color.getAnsi("NARANJA") + "...");
 			Thread.sleep(500);
 			System.out.print(".....");
 			Thread.sleep(500);
@@ -804,8 +806,8 @@ public class AppJavagotchi {
 		}
 		// Mensaje de proceso de limpiar
 		try {
-			System.out.print(color.getAnsi("CIAN") + mascota.getNombre() + color.getAnsi("NARANJA")
-					+ " se está dando un baño...");
+			System.out.print(color.getAnsi(String.valueOf(mascota.getColor())) + mascota.getNombre()
+					+ color.getAnsi("NARANJA") + " se está dando un baño...");
 			Thread.sleep(500);
 			System.out.print(".....");
 			Thread.sleep(500);

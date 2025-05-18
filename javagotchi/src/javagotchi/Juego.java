@@ -19,6 +19,8 @@ public class Juego implements MostrarInformacion, Comparable<Juego> {
 	private int limpiezaDisminuida;
 	private int felicidadAportada;
 
+	private ColorAnsi color = new ColorAnsi();
+
 	/**
 	 * Constructor completo
 	 * 
@@ -148,11 +150,16 @@ public class Juego implements MostrarInformacion, Comparable<Juego> {
 
 	@Override
 	public void mostrarInfo() {
-		System.out.println("-----------------------------------------------------------");
-		System.out.println("🥎 CÓDIGO: " + this.codigo + " 🥎 DESCRIPCIÓN: " + this.descripcion + " 🥎 NUTRICIÓN: -"
-				+ this.nutricionDisminuida + " 🥎 LIMPIEZA: -" + this.limpiezaDisminuida + " 🥎 FELICIDAD: +"
+		System.out.println(color.getAnsi("MORADO") + "\t-----------------------------------------------------------"
+				+ color.getAnsi("RESET"));
+		System.out.println(color.getAnsi("AMARILLO") + "\t🥎 CÓDIGO: " + color.getAnsi("RESET") + this.codigo
+				+ color.getAnsi("AMARILLO") + " 🥎 DESCRIPCIÓN: " + color.getAnsi("RESET") + this.descripcion
+				+ color.getAnsi("AMARILLO") + " 🥎 NUTRICIÓN: " + color.getAnsi("ROJO") + "-" + this.nutricionDisminuida
+				+ color.getAnsi("AMARILLO") + " 🥎 LIMPIEZA: " + color.getAnsi("ROJO") + "-" + this.limpiezaDisminuida
+				+ color.getAnsi("AMARILLO") + " 🥎 FELICIDAD: " + color.getAnsi("VERDE") + "+"
 				+ this.felicidadAportada);
-		System.out.println("-----------------------------------------------------------");
+		System.out.println(color.getAnsi("MORADO") + "\t-----------------------------------------------------------"
+				+ color.getAnsi("RESET"));
 	}
 
 }

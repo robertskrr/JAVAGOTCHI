@@ -147,7 +147,9 @@ public class MascotaDAO {
 			sentencia.setInt(2, mascota.getLimpieza());
 			sentencia.setInt(3, mascota.getFelicidad());
 			sentencia.setInt(4, mascota.getId());
-			System.out.print(color.getAnsi("NARANJA") + "CARGANDO ESTADÍSTICAS DE '" + mascota.getNombre() + "'...");
+			System.out.print(color.getAnsi("NARANJA") + "CARGANDO ESTADÍSTICAS DE "
+					+ color.getAnsi(String.valueOf(mascota.getColor())) + mascota.getNombre() + color.getAnsi("NARANJA")
+					+ "...");
 			Thread.sleep(500);
 			System.out.print(".....\n" + color.getAnsi("RESET"));
 			sentencia.executeUpdate();

@@ -18,6 +18,8 @@ public class Comida implements MostrarInformacion, Comparable<Comida> {
 	private int nutricionAportada;
 	private int felicidadAportada;
 
+	private ColorAnsi color = new ColorAnsi();
+
 	/**
 	 * Constructor completo
 	 * 
@@ -124,10 +126,15 @@ public class Comida implements MostrarInformacion, Comparable<Comida> {
 
 	@Override
 	public void mostrarInfo() {
-		System.out.println("-----------------------------------------------------------");
-		System.out.println("🍽 CÓDIGO: " + this.codigo + " 🍽 DESCRIPCIÓN: " + this.descripcion + " 🍽 NUTRICIÓN: +"
-				+ this.nutricionAportada + " 🍽 FELICIDAD: +" + this.felicidadAportada);
-		System.out.println("-----------------------------------------------------------");
+		System.out.println(color.getAnsi("NARANJA") + "\t-----------------------------------------------------------"
+				+ color.getAnsi("RESET"));
+		System.out.println(color.getAnsi("AMARILLO") + "\t🍽 CÓDIGO: " + color.getAnsi("RESET") + this.codigo
+				+ color.getAnsi("AMARILLO") + " 🍽 DESCRIPCIÓN: " + color.getAnsi("RESET") + this.descripcion
+				+ color.getAnsi("AMARILLO") + " 🍽 NUTRICIÓN: " + color.getAnsi("VERDE") + "+" + this.nutricionAportada
+				+ color.getAnsi("AMARILLO") + " 🍽 FELICIDAD: " + color.getAnsi("VERDE") + "+"
+				+ this.felicidadAportada);
+		System.out.println(color.getAnsi("NARANJA") + "\t-----------------------------------------------------------"
+				+ color.getAnsi("RESET"));
 	}
 
 }

@@ -299,10 +299,19 @@ public abstract class Mascota implements MostrarInformacion, Comparable<Mascota>
 
 	@Override
 	public void mostrarInfo() {
-		System.out.println("========================================================================================");
-		System.out.println("⭐ ID: " + this.id + " ⭐ NOMBRE: " + this.nombre + " ⭐ TIPO: " + this.tipo + " ⭐ COLOR: "
-				+ this.color + " ⭐ SEXO: " + this.sexo + " ⭐ FECHA CREACIÓN: " + this.fechaCreacion);
-		System.out.println("========================================================================================");
+		System.out.println(colorAnsi.getAnsi("CIAN")
+				+ "================================================================================================"
+				+ colorAnsi.getAnsi("RESET"));
+		System.out.println(colorAnsi.getAnsi("NARANJA") + "⭐ ID: " + colorAnsi.getAnsi("RESET") + this.id
+				+ colorAnsi.getAnsi("NARANJA") + " ⭐ NOMBRE: " + colorAnsi.getAnsi("RESET") + this.nombre
+				+ colorAnsi.getAnsi("NARANJA") + " ⭐ TIPO: " + colorAnsi.getAnsi("RESET") + this.tipo
+				+ colorAnsi.getAnsi("NARANJA") + " ⭐ COLOR: " + colorAnsi.getAnsi(String.valueOf(this.color))
+				+ this.color + colorAnsi.getAnsi("NARANJA") + " ⭐ SEXO: " + colorAnsi.getAnsi("RESET") + this.sexo
+				+ colorAnsi.getAnsi("NARANJA") + " ⭐ FECHA CREACIÓN: " + colorAnsi.getAnsi("RESET")
+				+ this.fechaCreacion);
+		System.out.println(colorAnsi.getAnsi("CIAN")
+				+ "================================================================================================"
+				+ colorAnsi.getAnsi("RESET"));
 	}
 
 	/**
@@ -424,7 +433,7 @@ public abstract class Mascota implements MostrarInformacion, Comparable<Mascota>
 			felicidadAportada = 3;
 		} else if (this.limpieza < 10) {
 			felicidadAportada = 2;
-		} 
+		}
 
 		return felicidadAportada;
 	}

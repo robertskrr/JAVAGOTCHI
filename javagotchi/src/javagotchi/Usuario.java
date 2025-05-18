@@ -26,6 +26,8 @@ public class Usuario implements MostrarInformacion, Comparable<Usuario> {
 	private String ciudad;
 	private LocalDate fechaRegistro;
 
+	private ColorAnsi color = new ColorAnsi();
+
 	/**
 	 * Constructor completo a falta de fechaRegistro, usado para los create de la
 	 * parte CRUD, ya que la fecha se genera automáticamente en la BD
@@ -188,12 +190,14 @@ public class Usuario implements MostrarInformacion, Comparable<Usuario> {
 
 	@Override
 	public void mostrarInfo() {
-		System.out.println("⬇️⬇️ USUARIO " + "'" + this.username + "' ⬇️⬇️");
-		System.out.println("🔸 Nombre: " + this.nombreCompleto);
-		System.out.println("🔸 Email: " + this.email);
-		System.out.println("🔸 Fecha Nacimiento: " + this.fechaNac);
-		System.out.println("🔸 Ciudad: " + this.ciudad);
-		System.out.println("🔸 Fecha Registro: " + this.fechaRegistro);
+		System.out.println(color.getAnsi("NARANJA") + "⬇️⬇️ USUARIO " + color.getAnsi("VERDE")
+				+ this.username.toUpperCase() + color.getAnsi("NARANJA") + " ⬇️⬇️" + color.getAnsi("RESET"));
+		System.out.println(color.getAnsi("VERDE") + "🔸 Nombre: " + color.getAnsi("RESET") + this.nombreCompleto);
+		System.out.println(color.getAnsi("VERDE") + "🔸 Email: " + color.getAnsi("RESET") + this.email);
+		System.out.println(color.getAnsi("VERDE") + "🔸 Fecha Nacimiento: " + color.getAnsi("RESET") + this.fechaNac);
+		System.out.println(color.getAnsi("VERDE") + "🔸 Ciudad: " + color.getAnsi("RESET") + this.ciudad);
+		System.out
+				.println(color.getAnsi("VERDE") + "🔸 Fecha Registro: " + color.getAnsi("RESET") + this.fechaRegistro);
 	}
 
 	/**
@@ -201,13 +205,20 @@ public class Usuario implements MostrarInformacion, Comparable<Usuario> {
 	 * usuarios ordenados por 'X'
 	 */
 	public void mostrarInfoLista() {
-		System.out.println("-----------------------------------------------------------");
-		System.out.println("🔸 USERNAME: " + this.username + " 🔸 NOMBRE: " + this.nombreCompleto + " 🔸 EMAIL: "
-				+ this.email + " 🔸 FECHA NACIMIENTO: " + this.fechaNac + " 🔸 CIUDAD: " + this.ciudad
-				+ " 🔸 FECHA REGISTRO: " + this.fechaRegistro);
-		System.out.println("-----------------------------------------------------------");
+		System.out.println(color.getAnsi("NARANJA")
+				+ "================================================================================================"
+				+ color.getAnsi("RESET"));
+		System.out.println(color.getAnsi("VERDE") + "🔸 USERNAME: " + color.getAnsi("RESET") + this.username
+				+ color.getAnsi("VERDE") + " 🔸 NOMBRE: " + color.getAnsi("RESET") + this.nombreCompleto
+				+ color.getAnsi("VERDE") + " 🔸 EMAIL: " + color.getAnsi("RESET") + this.email + color.getAnsi("VERDE")
+				+ " 🔸 FECHA NACIMIENTO: " + color.getAnsi("RESET") + this.fechaNac + color.getAnsi("VERDE")
+				+ " 🔸 CIUDAD: " + color.getAnsi("RESET") + this.ciudad + color.getAnsi("VERDE")
+				+ " 🔸 FECHA REGISTRO: " + color.getAnsi("RESET") + this.fechaRegistro);
+		System.out.println(color.getAnsi("NARANJA")
+				+ "================================================================================================"
+				+ color.getAnsi("RESET"));
 	}
-	
+
 	@Override
 	public int compareTo(Usuario u) {
 		return this.username.compareTo(u.getUsername());
