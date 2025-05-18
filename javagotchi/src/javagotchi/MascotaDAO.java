@@ -334,12 +334,12 @@ public class MascotaDAO {
 	 * 
 	 * @param mascota
 	 */
-	public void registrarLimpieza(Mascota mascota) {
+	public void registrarLimpieza(Mascota mascota, int felicidadAportada) {
 		String sql = "INSERT INTO REGISTRO_LIMPIEZA(id_mascota, felicidad_aportada) VALUES (?, ?)";
 		try {
 			PreparedStatement sentencia = conexion.prepareStatement(sql);
 			sentencia.setInt(1, mascota.getId());
-			sentencia.setInt(2, mascota.felicidadAportadaLimpieza());
+			sentencia.setInt(2, felicidadAportada);
 			System.out.print(color.getAnsi("NARANJA") + "\nGUARDANDO DATOS..");
 			Thread.sleep(500);
 			System.out.print("....... \n" + color.getAnsi("RESET"));
