@@ -373,8 +373,13 @@ public abstract class Mascota implements MostrarInformacion, Comparable<Mascota>
 		// Si tiene mucha hambre se suma un bonus
 		if (this.nutricion < 4) {
 			aumentoFelicidad += 2;
+			System.out.println(colorAnsi.getAnsi("VERDE") + "¡" + this.nombre
+					+ " tenía muchísima hambre! ¡Se ha puesto muchísimo más contento!" + colorAnsi.getAnsi("RESET"));
+
 		} else if (this.nutricion < 8) {
 			aumentoFelicidad += 1;
+			System.out.println(colorAnsi.getAnsi("VERDE") + "¡" + this.nombre
+					+ " tenía hambre! ¡Se ha puesto algo más contento!" + colorAnsi.getAnsi("RESET"));
 		}
 
 		setNutricion(newNutricion);
