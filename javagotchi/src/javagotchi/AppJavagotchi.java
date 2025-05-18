@@ -57,6 +57,9 @@ public class AppJavagotchi {
 				case 6:
 					accesoMenuMascotas();
 					break;
+				case 7:
+					finalizarPrograma();
+					break;
 				default:
 					System.err.println("☹ERROR☹. Opción no válida.");
 				}
@@ -348,7 +351,7 @@ public class AppJavagotchi {
 				sc.nextLine(); // Limpiar buffer
 				switch (opcion) {
 				case 1:
-
+					accesoMenuInteraccionMascotas(usuario);
 					break;
 				case 2:
 					listarMascotas(usuario);
@@ -359,7 +362,13 @@ public class AppJavagotchi {
 				case 4:
 					crearMascota(usuario);
 					break;
-
+				case 5:
+					eliminarMascota(usuario);
+					break;
+				case 6:
+					System.out.println(
+							color.getAnsi("NARANJA") + "⭐ Volviendo al menú principal..." + color.getAnsi("RESET"));
+					break;
 				default:
 					System.err.println("☹ERROR☹. Opción no válida.");
 				}
@@ -382,8 +391,8 @@ public class AppJavagotchi {
 				+ " | |  | |/ ___ \\ ___) | |__| |_| || |/ ___ \\ ___) |\r\n"
 				+ " |_|  |_/_/   \\_\\____/ \\____\\___/ |_/_/   \\_\\____/ \r"
 				+ "                                                   " + color.getAnsi("RESET"));
-		System.out.println(color.getAnsi("CIAN") + "👤 Sesión iniciada de '" + usuario.getUsername() + "' 👤"
-				+ color.getAnsi("RESET"));
+		System.out.println(color.getAnsi("CIAN") + "👤 Sesión iniciada de '" + usuario.getUsername().toUpperCase()
+				+ "' 👤" + color.getAnsi("RESET"));
 		System.out.println(color.getAnsi("AMARILLO") + "⭐⭐ ELIGE UNA OPCIÓN ⭐⭐" + color.getAnsi("RESET"));
 		System.out.println("1. 🐱 JUGAR 🐱");
 		System.out.println("2. 🐥 Listar mascotas 🐥");
@@ -394,10 +403,93 @@ public class AppJavagotchi {
 	}
 
 	/**
+	 * Controla el acceso al menú de interacción con las mascotas del usuario
+	 * 
+	 * @param usuario
+	 */
+	public static void accesoMenuInteraccionMascotas(Usuario usuario) {
+		if (bdMascotas.listaMascotas(usuario.getUsername()).isEmpty()) {
+			System.err.println("☹AÚN NO HAY MASCOTAS REGISTRADAS PARA PODER JUGAR☹");
+			return;
+		}
+		System.out.println(color.getAnsi("NARANJA") + "\n🐱 JUGAR 🐱" + color.getAnsi("RESET"));
+		System.out.println(color.getAnsi("AMARILLO") + "⭐ Mostrando a tus mascotas..." + color.getAnsi("RESET"));
+		// Muestra a tus mascotas en orden de creación para seleccionar el ID
+		// correspondiente
+		listaMascotasOrdenFechaCreacion(bdMascotas.listaMascotas(usuario.getUsername())).forEach(Mascota::mostrarInfo);
+		System.out.print(color.getAnsi("AMARILLO")
+				+ "⭐ ID de la mascota con la que quieres jugar (o -1 para volver atrás): " + color.getAnsi("RESET"));
+		int idJugar;
+		try {
+			idJugar = sc.nextInt();
+			sc.nextLine();
+		} catch (InputMismatchException e) {
+			System.err.println("☹ERROR☹. Introduce un número por favor.");
+			sc.nextLine(); // Limpia buffer
+			return;
+		}
+
+		if (idJugar == -1) {
+			System.out
+					.println(color.getAnsi("NARANJA") + "⭐ Volviendo al menú de mascotas..." + color.getAnsi("RESET"));
+			return;
+		}
+		Mascota mascotaJugar = bdMascotas.read(idJugar, usuario.getUsername());
+		if (mascotaJugar == null) {
+			System.err.println("☹NO HAY NINGUNA MASCOTA DEL USUARIO '" + usuario.getUsername().toUpperCase()
+					+ "' REGISTRADA CON EL ID '" + idJugar + "'☹");
+			return;
+		}
+		// MENÚ DE INTERACCIÓN
+		int opcion = 0;
+		do {
+			try {
+				// Siempre recoge a la mascota actualizada de la BD
+				mascotaJugar = bdMascotas.read(idJugar, usuario.getUsername());
+				mostrarMenuInteraccionMascotas(mascotaJugar);
+				mascotaJugar.alertasEstadisticas();
+				System.out.print(color.getAnsi("AMARILLO") + "⭐ OPCIÓN: " + color.getAnsi("RESET"));
+				opcion = sc.nextInt();
+				sc.nextLine(); // Limpiar buffer
+				switch (opcion) {
+				case 1:
+					mascotaJugar.mostrarMovimiento();
+					break;
+				case 2:
+					alimentarMascota(mascotaJugar);
+					break;
+				case 3:
+					jugarConMascota(mascotaJugar);
+					break;
+				case 4:
+					limpiarMascota(mascotaJugar);
+					break;
+				case 5:
+					System.out.println(
+							color.getAnsi("NARANJA") + "⭐ Volviendo al menú de mascotas..." + color.getAnsi("RESET"));
+					break;
+				default:
+					System.err.println("☹ERROR☹. Opción no válida.");
+				}
+
+			} catch (InputMismatchException e) {
+				System.err.println("☹ERROR☹. Introduce un número por favor.");
+				sc.nextLine(); // Limpia buffer
+			}
+		} while (opcion != 5);
+	}
+
+	/**
 	 * Muestra el menú de interacción de cada mascota
 	 */
 	public static void mostrarMenuInteraccionMascotas(Mascota mascota) {
-
+		mascota.mostrarInfoDetallado();
+		System.out.println(color.getAnsi("AMARILLO") + "\n⭐⭐ ELIGE UNA OPCIÓN ⭐⭐" + color.getAnsi("RESET"));
+		System.out.println("1. 👀 Observar mascota 👀");
+		System.out.println("2. 🥦 Alimentar 🥦");
+		System.out.println("3. 🥎 Jugar 🥎");
+		System.out.println("4. 🧽 Bañar 🧽");
+		System.out.println("5. 🚫 Volver al menú de mascotas 🚫");
 	}
 
 	/**
@@ -405,7 +497,7 @@ public class AppJavagotchi {
 	 */
 	public static void listarMascotas(Usuario usuario) {
 		if (bdMascotas.listaMascotas(usuario.getUsername()).isEmpty()) {
-			System.err.println("☹AÚN NO HAY MASCOTAS REGISTRADAS☹");
+			System.err.println("☹AÚN NO HAY MASCOTAS REGISTRADAS PARA PODER LISTAR☹");
 			return;
 		}
 		try {
@@ -445,7 +537,7 @@ public class AppJavagotchi {
 	}
 
 	/**
-	 * Devuelve la lista de usuarios ordenadas por username
+	 * Devuelve la lista de mascotas ordenadas por nombre
 	 * 
 	 * @param listaOriginal
 	 * @return
@@ -468,15 +560,14 @@ public class AppJavagotchi {
 
 	/**
 	 * Devuelve la lista de usuarios ordenadas por fecha de creacion, cuando sean
-	 * iguales ordena por nombre
+	 * iguales ordena por ID
 	 * 
 	 * @param listaOriginal
 	 * @return
 	 */
 	public static List<Mascota> listaMascotasOrdenFechaCreacion(ArrayList<Mascota> listaOriginal) {
 		return listaOriginal.stream()
-				.sorted(Comparator.comparing(Mascota::getFechaCreacion).thenComparing(Comparator.naturalOrder()))
-				.toList();
+				.sorted(Comparator.comparing(Mascota::getFechaCreacion).thenComparing(Mascota::getId)).toList();
 	}
 
 	/**
@@ -484,7 +575,7 @@ public class AppJavagotchi {
 	 */
 	public static void buscarMascota(Usuario usuario) {
 		if (bdMascotas.listaMascotas(usuario.getUsername()).isEmpty()) {
-			System.err.println("☹AÚN NO HAY MASCOTAS REGISTRADAS☹");
+			System.err.println("☹AÚN NO HAY MASCOTAS REGISTRADAS PARA PODER BUSCAR☹");
 			return;
 		}
 		System.out.println(color.getAnsi("NARANJA") + "\n🔎 BÚSQUEDA DE MASCOTA 🔎" + color.getAnsi("RESET"));
@@ -551,6 +642,200 @@ public class AppJavagotchi {
 			System.err.println("☹ERROR☹. Introduce un número por favor.");
 			sc.nextLine(); // Limpia buffer
 			return;
+		}
+	}
+
+	/**
+	 * Elimina a la mascota del usuario de la BD
+	 * 
+	 * @param usuario
+	 */
+	public static void eliminarMascota(Usuario usuario) {
+		if (bdMascotas.listaMascotas(usuario.getUsername()).isEmpty()) {
+			System.err.println("☹AÚN NO HAY MASCOTAS REGISTRADAS PARA PODER ELIMINAR☹");
+			return;
+		}
+		try {
+			System.out.println(color.getAnsi("NARANJA") + "\n☹ ELIMINACIÓN DE MASCOTA ☹" + color.getAnsi("RESET"));
+			System.out.print(color.getAnsi("AMARILLO") + "⭐ ID de la mascota a eliminar (o -1 para volver atrás): "
+					+ color.getAnsi("RESET"));
+			int idEliminar = sc.nextInt();
+			sc.nextLine();
+			if (idEliminar == -1) {
+				System.err.println("🙂 ¡ELIMINACIÓN CANCELADA! 🙂");
+				return;
+			}
+			Mascota mascotaDelete = bdMascotas.read(idEliminar, usuario.getUsername());
+			if (mascotaDelete == null) {
+				System.err.println("☹NO HAY NINGUNA MASCOTA DEL USUARIO '" + usuario.getUsername().toUpperCase()
+						+ "' REGISTRADA CON EL ID '" + idEliminar + "'☹");
+				return;
+			}
+			System.out.println(color.getAnsi("CIAN") + "⬇️⬇️¿ESTÁS SEGURO DE ELIMINAR A TU MASCOTA?⬇️⬇️");
+			mascotaDelete.mostrarInfo();
+			System.out.print(color.getAnsi("AMARILLO") + "⭐ Introduce tu contraseña para confirmar la eliminación: "
+					+ color.getAnsi("RESET"));
+			String contraseniaUsuario = sc.nextLine();
+			if (!contraseniaCorrecta(usuario, contraseniaUsuario)) {
+				System.err.println("🙂 ¡ELIMINACIÓN CANCELADA! 🙂");
+				return;
+			}
+			bdMascotas.delete(idEliminar);
+		} catch (InputMismatchException e) {
+			System.err.println("☹ERROR☹. Introduce un número por favor.");
+			sc.nextLine(); // Limpia buffer
+			return;
+		}
+	}
+
+	/**
+	 * Alimenta a la mascota en función de su tipo
+	 * 
+	 * @param mascota
+	 */
+	public static void alimentarMascota(Mascota mascota) {
+		System.out.println(color.getAnsi("CIAN") + "\n🥦 ALIMENTACIÓN DE " + mascota.getNombre().toUpperCase() + " 🥦"
+				+ color.getAnsi("RESET"));
+		System.out.println(color.getAnsi("AMARILLO") + "⬇️⬇️ COMIDAS DISPONIBLES ⬇️⬇️" + color.getAnsi("RESET"));
+		bdComidas.listaComidas(mascota.getTipo()).forEach(Comida::mostrarInfo);
+		System.out.print(color.getAnsi("AMARILLO") + "⭐ Introduce el código del alimento que quieres dar: "
+				+ color.getAnsi("RESET"));
+		String codigoComida = sc.nextLine();
+		Comida comida = bdComidas.read(codigoComida);
+		if (comida == null) {
+			System.err.println("☹NO HAY NINGUNA COINCIDENCIA CON EL CÓDIGO '" + codigoComida + "'☹");
+			return;
+		}
+		// Comprueba en el caso de existir que sea para el tipo de mascota
+		if (!comida.getTipoMascota().equalsIgnoreCase(mascota.getTipo())) {
+			System.err.println("☹EL CÓDIGO INTRODUCIDO NO CORRESPONDE AL TIPO DE TU MASCOTA☹");
+			return;
+		}
+		// Si la mascota está llena vuelve atrás
+		if (!mascota.comer(comida)) {
+			return;
+		}
+		// Mensaje de proceso de comer
+		try {
+			System.out.print(color.getAnsi("CIAN") + mascota.getNombre() + color.getAnsi("NARANJA") + " está comiendo '"
+					+ comida.getDescripcion() + "'...");
+			Thread.sleep(500);
+			System.out.print(".....");
+			Thread.sleep(500);
+			System.out.print("....... " + color.getAnsi("RESET"));
+		} catch (InterruptedException e) {
+			System.out.println("ERROR" + e.getMessage());
+			return;
+		}
+		// Guarda el registro de la alimentación
+		bdMascotas.registrarAlimentacion(mascota, comida);
+		// Chequea la felicidad en cuanto a las otras stats
+		mascota.checkFelicidad();
+		// Actualiza las stats de la mascota
+		bdMascotas.updateStats(mascota);
+	}
+
+	/**
+	 * Juega con la mascota en función de su tipo
+	 * 
+	 * @param mascota
+	 */
+	public static void jugarConMascota(Mascota mascota) {
+		System.out.println(color.getAnsi("CIAN") + "\n🥎 JUEGO CON " + mascota.getNombre().toUpperCase() + " 🥎"
+				+ color.getAnsi("RESET"));
+		System.out.println(color.getAnsi("AMARILLO") + "⬇️⬇️ JUEGOS DISPONIBLES ⬇️⬇️" + color.getAnsi("RESET"));
+		bdJuegos.listaJuegos(mascota.getTipo()).forEach(Juego::mostrarInfo);
+		System.out.print(color.getAnsi("AMARILLO") + "⭐ Introduce el código del juego que quieres jugar: "
+				+ color.getAnsi("RESET"));
+		String codigoJuego = sc.nextLine();
+		Juego juego = bdJuegos.read(codigoJuego);
+		if (juego == null) {
+			System.err.println("☹NO HAY NINGUNA COINCIDENCIA CON EL CÓDIGO '" + codigoJuego + "'☹");
+			return;
+		}
+		// Comprueba en el caso de existir que sea para el tipo de mascota
+		if (!juego.getTipoMascota().equalsIgnoreCase(mascota.getTipo())) {
+			System.err.println("☹EL CÓDIGO INTRODUCIDO NO CORRESPONDE AL TIPO DE TU MASCOTA☹");
+			return;
+		}
+		// Si la mascota no quiere jugar vuelve atrás
+		if (!mascota.jugar(juego)) {
+			return;
+		}
+		// Mensaje de proceso de jugar
+		try {
+			System.out.print(color.getAnsi("CIAN") + mascota.getNombre() + color.getAnsi("NARANJA") + " está jugando '"
+					+ juego.getDescripcion() + "'...");
+			Thread.sleep(500);
+			System.out.print(".....");
+			Thread.sleep(500);
+			System.out.print("....... " + color.getAnsi("RESET"));
+		} catch (InterruptedException e) {
+			System.out.println("ERROR" + e.getMessage());
+			return;
+		}
+		// Guarda el registro del juego
+		bdMascotas.registrarJuego(mascota, juego);
+		// Chequea la felicidad en cuanto a las otras stats
+		mascota.checkFelicidad();
+		// Actualiza las stats de la mascota
+		bdMascotas.updateStats(mascota);
+	}
+
+	/**
+	 * Limpia a la mascota
+	 * 
+	 * @param mascota
+	 */
+	public static void limpiarMascota(Mascota mascota) {
+		System.out.println(color.getAnsi("CIAN") + "\n🧽 LIMPIEZA DE " + mascota.getNombre().toUpperCase() + " 🧽"
+				+ color.getAnsi("RESET"));
+		// Guardamos la felicidaadAportada antes de que cambie al limpiar, para
+		// almacenarlo en la BD
+		int felicidadAportada = mascota.felicidadAportadaLimpieza();
+		// Si la mascota está limpia vuelve atrás
+		if (!mascota.limpiar()) {
+			return;
+		}
+		// Mensaje de proceso de limpiar
+		try {
+			System.out.print(color.getAnsi("CIAN") + mascota.getNombre() + color.getAnsi("NARANJA")
+					+ " se está dando un baño...");
+			Thread.sleep(500);
+			System.out.print(".....");
+			Thread.sleep(500);
+			System.out.print("....... " + color.getAnsi("RESET"));
+		} catch (InterruptedException e) {
+			System.out.println("ERROR" + e.getMessage());
+			return;
+		}
+		// Guarda el registro de la limpieza
+		bdMascotas.registrarLimpieza(mascota, felicidadAportada);
+		// Chequea la felicidad en cuanto a las otras stats
+		mascota.checkFelicidad();
+		// Actualiza las stats de la mascota
+		bdMascotas.updateStats(mascota);
+	}
+
+	/**
+	 * Finaliza el programa
+	 */
+	public static void finalizarPrograma() {
+		try {
+			System.out.println(color.getAnsi("VERDE") + "\n🐥 ¡GRACIAS POR JUGAR! 🐥");
+			Thread.sleep(500);
+			// Cerramos todas las conexiones
+			bdUsuarios.cerrarConexion();
+			bdMascotas.cerrarConexion();
+			bdComidas.cerrarConexion();
+			bdJuegos.cerrarConexion();
+			System.out.print(color.getAnsi("NARANJA") + "CERRANDO JAVAGOTCHI...");
+			Thread.sleep(500);
+			System.out.print(".....");
+			Thread.sleep(500);
+			System.out.print("....... " + color.getAnsi("RESET"));
+		} catch (InterruptedException e) {
+			System.err.println("ERROR: " + e.getMessage());
 		}
 	}
 
