@@ -333,6 +333,7 @@ public class MascotaDAO {
 	 * Guarda el registro de la limpieza de la mascota en la BD
 	 * 
 	 * @param mascota
+	 * @param felicidadAportada
 	 */
 	public void registrarLimpieza(Mascota mascota, int felicidadAportada) {
 		String sql = "INSERT INTO REGISTRO_LIMPIEZA(id_mascota, felicidad_aportada) VALUES (?, ?)";
