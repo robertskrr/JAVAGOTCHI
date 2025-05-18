@@ -326,7 +326,7 @@ public abstract class Mascota implements MostrarInformacion, Comparable<Mascota>
 	 * Chequea el decremento de los niveles de felicidad con respecto a las otras
 	 * estadísticas
 	 */
-	private void checkFelicidad() {
+	public void checkFelicidad() {
 		// Si la nutrición es 5 o menor decrementa felicidad
 		if (this.nutricion < 5) {
 			setFelicidad(this.felicidad - 1); // Revisa que no sea nunca negativo el valor final
@@ -340,7 +340,7 @@ public abstract class Mascota implements MostrarInformacion, Comparable<Mascota>
 	/**
 	 * Muestra las alertas de estadísticas bajas y revisa la felicidad también
 	 */
-	public void checkEstadisticas() {
+	public void alertasEstadisticas() {
 		if (this.nutricion == ESTADISTICA_MIN) {
 			System.err.println("¡" + this.nombre + " tiene mucha hambre! ¡Aliméntala pronto!");
 		}
@@ -349,7 +349,6 @@ public abstract class Mascota implements MostrarInformacion, Comparable<Mascota>
 			System.err.println("¡" + this.nombre + " está muy sucia! ¡Báñala cuánto antes!");
 		}
 
-		checkFelicidad();
 		if (this.felicidad == ESTADISTICA_MIN) {
 			System.err.println("¡" + this.nombre + " está muy triste! ¡Revisa qué es lo que necesita!");
 		}
