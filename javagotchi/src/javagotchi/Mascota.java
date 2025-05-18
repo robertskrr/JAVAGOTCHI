@@ -355,15 +355,15 @@ public abstract class Mascota implements MostrarInformacion, Comparable<Mascota>
 	}
 
 	/**
-	 * Interacción de alimentar a la mascota
+	 * Interacción de alimentar a la mascota, si está llena no comerá
 	 * 
 	 * @param comida
 	 */
-	public void comer(Comida comida) {
+	public boolean comer(Comida comida) {
 		if (this.nutricion == ESTADISTICA_MAX) {
 			System.out.println(colorAnsi.getAnsi("VERDE") + "¡" + this.nombre
 					+ " no quiere comer más! ¡Ha comido lo suficiente!" + colorAnsi.getAnsi("RESET"));
-			return;
+			return false;
 		}
 		// Depende del hambre que tenga aumenta la felicidad a parte de la que aporta la
 		// comida
@@ -379,6 +379,7 @@ public abstract class Mascota implements MostrarInformacion, Comparable<Mascota>
 
 		setNutricion(newNutricion);
 		setFelicidad(this.felicidad + aumentoFelicidad);
+		return true;
 	}
 
 	/**
@@ -386,11 +387,11 @@ public abstract class Mascota implements MostrarInformacion, Comparable<Mascota>
 	 * 
 	 * @param juego
 	 */
-	public void jugar(Juego juego) {
+	public boolean jugar(Juego juego) {
 		// Si tiene mucha hambre no querrá jugar
 		if (this.nutricion == 0) {
 			System.err.println("¡" + this.nombre + " tiene mucha hambre! No tiene ganas de jugar.");
-			return;
+			return false;
 		}
 		// Actualiza las estadísticas con lo que aporta y resta cada juego
 		int newNutricion = this.nutricion - juego.getNutricionDisminuida();
@@ -401,6 +402,8 @@ public abstract class Mascota implements MostrarInformacion, Comparable<Mascota>
 
 		int newFelicidad = this.felicidad + juego.getFelicidadAportada();
 		setFelicidad(newFelicidad);
+
+		return true;
 	}
 
 	/**
@@ -427,14 +430,16 @@ public abstract class Mascota implements MostrarInformacion, Comparable<Mascota>
 	/**
 	 * Método para limpiar a la mascota
 	 */
-	public void limpiar() {
+	public boolean limpiar() {
 		if (this.limpieza == ESTADISTICA_MAX) {
 			System.out.println(colorAnsi.getAnsi("VERDE") + "¡" + this.nombre
 					+ " está muy limpio! ¡No es necesario bañarse ahora mismo!" + colorAnsi.getAnsi("RESET"));
-			return;
+			return false;
 		}
 		setFelicidad(this.felicidad + felicidadAportadaLimpieza());
 		setLimpieza(ESTADISTICA_MAX);
+
+		return true;
 	}
 
 	/**
