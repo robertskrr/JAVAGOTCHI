@@ -166,7 +166,9 @@ public class AppJavagotchi {
 	 * @return
 	 */
 	public static List<Usuario> listaUsuariosOrdenUsername(ArrayList<Usuario> listaOriginal) {
-		return listaOriginal.stream().sorted().toList();
+		return listaOriginal.stream()
+				.sorted()
+				.toList();
 	}
 
 	/**
@@ -176,7 +178,9 @@ public class AppJavagotchi {
 	 * @return
 	 */
 	public static List<Usuario> listaUsuariosOrdenFechaRegistro(ArrayList<Usuario> listaOriginal) {
-		return listaOriginal.stream().sorted(Comparator.comparing(Usuario::getFechaRegistro)).toList();
+		return listaOriginal.stream()
+				.sorted(Comparator.comparing(Usuario::getFechaRegistro))
+				.toList();
 	}
 
 	/**
@@ -513,12 +517,14 @@ public class AppJavagotchi {
 			case 1:
 				System.out.println(
 						color.getAnsi("NARANJA") + "🐥 MASCOTAS ORDENADAS POR NOMBRE 🐥" + color.getAnsi("RESET"));
-				listaMascotasOrdenNombre(bdMascotas.listaMascotas(usuario.getUsername())).forEach(Mascota::mostrarInfo);
+				listaMascotasOrdenNombre(bdMascotas.listaMascotas(usuario.getUsername()))
+				.forEach(Mascota::mostrarInfo);
 				break;
 			case 2:
 				System.out.println(
 						color.getAnsi("NARANJA") + "🐥 MASCOTAS ORDENADAS POR TIPO 🐥" + color.getAnsi("RESET"));
-				listaMascotasOrdenTipo(bdMascotas.listaMascotas(usuario.getUsername())).forEach(Mascota::mostrarInfo);
+				listaMascotasOrdenTipo(bdMascotas.listaMascotas(usuario.getUsername()))
+				.forEach(Mascota::mostrarInfo);
 				break;
 			case 3:
 				System.out.println(color.getAnsi("NARANJA") + "🐥 MASCOTAS ORDENADAS POR FECHA DE CREACIÓN 🐥"
@@ -543,7 +549,9 @@ public class AppJavagotchi {
 	 * @return
 	 */
 	public static List<Mascota> listaMascotasOrdenNombre(ArrayList<Mascota> listaOriginal) {
-		return listaOriginal.stream().sorted().toList();
+		return listaOriginal.stream()
+				.sorted()
+				.toList();
 	}
 
 	/**
@@ -555,7 +563,9 @@ public class AppJavagotchi {
 	 */
 	public static List<Mascota> listaMascotasOrdenTipo(ArrayList<Mascota> listaOriginal) {
 		return listaOriginal.stream()
-				.sorted(Comparator.comparing(Mascota::getTipo).thenComparing(Comparator.naturalOrder())).toList();
+				.sorted(Comparator.comparing(Mascota::getTipo)
+				.thenComparing(Comparator.naturalOrder()))
+				.toList();
 	}
 
 	/**
@@ -567,7 +577,9 @@ public class AppJavagotchi {
 	 */
 	public static List<Mascota> listaMascotasOrdenFechaCreacion(ArrayList<Mascota> listaOriginal) {
 		return listaOriginal.stream()
-				.sorted(Comparator.comparing(Mascota::getFechaCreacion).thenComparing(Mascota::getId)).toList();
+				.sorted(Comparator.comparing(Mascota::getFechaCreacion)
+				.thenComparing(Mascota::getId))
+				.toList();
 	}
 
 	/**

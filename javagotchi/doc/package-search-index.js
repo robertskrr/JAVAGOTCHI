@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"m":"javagotchi","l":"javagotchi"}];updateSearchResults();
