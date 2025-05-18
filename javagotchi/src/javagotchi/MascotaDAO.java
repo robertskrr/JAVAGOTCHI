@@ -175,7 +175,7 @@ public class MascotaDAO {
 			System.out.print("....... " + color.getAnsi("RESET"));
 			Thread.sleep(500);
 			sentencia.executeUpdate();
-			System.out.println(color.getAnsi("VERDE") + "¡MASCOTA ELIMINADA CON ÉXITO!" + color.getAnsi("RESET"));
+			System.out.println(color.getAnsi("VERDE") + "☹ ¡MASCOTA ELIMINADA CON ÉXITO! ☹" + color.getAnsi("RESET"));
 		} catch (SQLException e) {
 			System.err.println("Error al eliminar la mascota: " + e.getMessage());
 		} catch (InterruptedException e) {
