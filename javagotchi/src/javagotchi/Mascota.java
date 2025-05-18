@@ -424,10 +424,7 @@ public abstract class Mascota implements MostrarInformacion, Comparable<Mascota>
 			felicidadAportada = 3;
 		} else if (this.limpieza < 10) {
 			felicidadAportada = 2;
-		} else {
-			felicidadAportada = 0; // Si está totalmente limpio no aporta felicidad, esto es para la BD
-									// principalmente
-		}
+		} 
 
 		return felicidadAportada;
 	}
