@@ -447,6 +447,20 @@ public abstract class Mascota implements MostrarInformacion, Comparable<Mascota>
 					+ " está muy limpio! ¡No es necesario bañarse ahora mismo!" + colorAnsi.getAnsi("RESET"));
 			return false;
 		}
+		// Depende del nivel de felicidadAportadaLimpieza muestra un mensaje u otro
+		if (felicidadAportadaLimpieza() == 4) {
+			System.out.println(colorAnsi.getAnsi("VERDE") + "¡" + this.nombre
+					+ " estaba muy muy sucio y le hacía falta un baño! ¡Se ha puesto muy contento!"
+					+ colorAnsi.getAnsi("RESET"));
+		} else if (felicidadAportadaLimpieza() == 3) {
+			System.out.println(colorAnsi.getAnsi("VERDE") + "¡" + this.nombre
+					+ " estaba sucio! ¡Se ha puesto más contento!" + colorAnsi.getAnsi("RESET"));
+		} else if (felicidadAportadaLimpieza() == 2) {
+			System.out.println(colorAnsi.getAnsi("VERDE") + "¡" + this.nombre
+					+ " estaba algo limpio! ¡Pero se ha puesto contento igualmente! Un baño nunca viene mal."
+					+ colorAnsi.getAnsi("RESET"));
+		}
+
 		setFelicidad(this.felicidad + felicidadAportadaLimpieza());
 		setLimpieza(ESTADISTICA_MAX);
 
