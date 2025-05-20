@@ -179,7 +179,8 @@ public class AppJavagotchi {
 	 */
 	public static List<Usuario> listaUsuariosOrdenFechaRegistro(ArrayList<Usuario> listaOriginal) {
 		return listaOriginal.stream()
-				.sorted(Comparator.comparing(Usuario::getFechaRegistro))
+				.sorted(Comparator.comparing(Usuario::getFechaRegistro)
+				.thenComparing(Comparator.naturalOrder())) // Si coinciden fechas ordena por username
 				.toList();
 	}
 
