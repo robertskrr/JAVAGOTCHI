@@ -10,13 +10,13 @@ import java.util.*;
  */
 public class AppJavagotchi {
 
-	private static UsuarioDAO bdUsuarios = new UsuarioDAO();
+	public static UsuarioDAO bdUsuarios = new UsuarioDAO();
 
-	private static MascotaDAO bdMascotas = new MascotaDAO();
+	public static MascotaDAO bdMascotas = new MascotaDAO();
 
-	private static ComidaDAO bdComidas = new ComidaDAO();
+	public static ComidaDAO bdComidas = new ComidaDAO();
 
-	private static JuegoDAO bdJuegos = new JuegoDAO();
+	public static JuegoDAO bdJuegos = new JuegoDAO();
 
 	private static Scanner sc = new Scanner(System.in);
 
