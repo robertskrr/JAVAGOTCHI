@@ -13,12 +13,15 @@ class AppJavagotchiTest {
 		// Ejecutamos el método para un usuario existente en la BD
 		boolean existe = AppJavagotchi.existeUsuario("robertskrr");
 		assertTrue(existe);
+		// Comprobamos que al leerlo no sea null
+		Usuario usuarioExistente = AppJavagotchi.bdUsuarios.read("robertskrr");
+		assertNotNull(usuarioExistente);
 		// Ejecutamos el método para un usuario no existente
 		boolean noExiste = AppJavagotchi.existeUsuario("noExiste");
 		assertFalse(noExiste);
 		// Comprobamos que al leerlo sea null
 		Usuario usuarioInexistente = AppJavagotchi.bdUsuarios.read("noExiste");
-		assertEquals(null, usuarioInexistente);
+		assertNull(usuarioInexistente);
 	}
 
 	@Test
@@ -37,20 +40,21 @@ class AppJavagotchiTest {
 	void testListaUsuariosOrdenFechaRegistro() {
 		// Creamos la lista sin ordenar
 		ArrayList<Usuario> listaSinOrdenar = AppJavagotchi.bdUsuarios.listaUsuarios();
+		assertFalse(listaSinOrdenar.isEmpty());
 		// El primero de la lista desordenada debería de ser el usuario 'jelenmcz'
-		Usuario usuarioDesordenado = listaSinOrdenar.getFirst();
-		usuarioDesordenado.mostrarInfoLista(); // Lo muestra en consola para verificar
-		assertEquals(usuarioDesordenado, listaSinOrdenar.get(0));
+		Usuario usuarioAntesOrdenar = listaSinOrdenar.getFirst();
+		usuarioAntesOrdenar.mostrarInfoLista(); // Lo muestra en consola para verificar
+		assertEquals(usuarioAntesOrdenar, listaSinOrdenar.get(0));
 
 		// Ordenamos la lista
 		List<Usuario> listaOrdenadaFechaRegistro = AppJavagotchi.listaUsuariosOrdenFechaRegistro(listaSinOrdenar);
 		// El primero debería de ser el usuario 'usuario03', ya que tiene la fecha más
 		// antigua
-		Usuario usuarioOrdenado = listaOrdenadaFechaRegistro.getFirst();
-		usuarioOrdenado.mostrarInfoLista(); // Lo muestra en consola para verificar
+		Usuario usuarioPrimerOrdenado = listaOrdenadaFechaRegistro.getFirst();
+		usuarioPrimerOrdenado.mostrarInfoLista(); // Lo muestra en consola para verificar
 		// Comprobamos que el orden sea el correcto
-		assertEquals(usuarioOrdenado, listaOrdenadaFechaRegistro.get(0));
-		assertNotEquals(usuarioDesordenado, listaOrdenadaFechaRegistro.get(0));
+		assertEquals(usuarioPrimerOrdenado, listaOrdenadaFechaRegistro.get(0));
+		assertNotEquals(usuarioAntesOrdenar, listaOrdenadaFechaRegistro.get(0));
 	}
 
 	@Test
