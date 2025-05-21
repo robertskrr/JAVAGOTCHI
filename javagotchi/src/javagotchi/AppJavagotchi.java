@@ -131,8 +131,12 @@ public class AppJavagotchi {
 	 * Muestra los usuarios en el orden asignado
 	 */
 	public static void listaUsuarios() {
-		try {
 			System.out.println(color.getAnsi("NARANJA") + "\n👥 USUARIOS DE JAVAGOTCHI 👥" + color.getAnsi("RESET"));
+			if (bdUsuarios.listaUsuarios().isEmpty()) {
+				System.err.println("☹No hay usuarios registrados aún☹");
+				return;
+			}
+		try {
 			System.out.println("\t1. Ordenados por username.");
 			System.out.println("\t2. Ordenados por fecha de registro.");
 			System.out.print(color.getAnsi("AMARILLO") + "⭐ ELIGE EL ORDEN: " + color.getAnsi("RESET"));
@@ -203,6 +207,10 @@ public class AppJavagotchi {
 	 */
 	public static void buscarUsuario() {
 		System.out.println(color.getAnsi("NARANJA") + "\n🔎 BÚSQUEDA DE USUARIO 🔎" + color.getAnsi("RESET"));
+		if (bdUsuarios.listaUsuarios().isEmpty()) {
+			System.err.println("☹No hay usuarios registrados aún☹");
+			return;
+		}
 		System.out.print(color.getAnsi("AMARILLO") + "⭐ Introduce el username a buscar: " + color.getAnsi("RESET"));
 		String usernameBusca = sc.nextLine();
 		Usuario usuarioBusca = bdUsuarios.read(usernameBusca);
@@ -233,6 +241,10 @@ public class AppJavagotchi {
 	 */
 	public static void modificarUsuario() {
 		System.out.println(color.getAnsi("NARANJA") + "\n⚙ MODIFICACIÓN DE USUARIO ⚙" + color.getAnsi("RESET"));
+		if (bdUsuarios.listaUsuarios().isEmpty()) {
+			System.err.println("☹No hay usuarios registrados aún☹");
+			return;
+		}
 		System.out.print(color.getAnsi("AMARILLO") + "⭐ Introduce el username del usuario a modificar: "
 				+ color.getAnsi("RESET"));
 		String usernameOriginal = sc.nextLine();
@@ -306,6 +318,10 @@ public class AppJavagotchi {
 	 */
 	public static void eliminarUsuario() {
 		System.out.println(color.getAnsi("NARANJA") + "\n☹ ELIMINACIÓN DE USUARIO ☹" + color.getAnsi("RESET"));
+		if (bdUsuarios.listaUsuarios().isEmpty()) {
+			System.err.println("☹No hay usuarios registrados aún☹");
+			return;
+		}
 		System.out.print(color.getAnsi("AMARILLO") + "⭐ Introduce tu username: " + color.getAnsi("RESET"));
 		String usernameDelete = sc.nextLine();
 		if (!existeUsuario(usernameDelete)) {
@@ -336,6 +352,10 @@ public class AppJavagotchi {
 	 */
 	public static void accesoMenuMascotas() {
 		System.out.println(color.getAnsi("NARANJA") + "\n🐶 ACCESO A MENÚ DE MASCOTAS 🐶" + color.getAnsi("RESET"));
+		if (bdUsuarios.listaUsuarios().isEmpty()) {
+			System.err.println("☹No hay usuarios registrados aún☹");
+			return;
+		}
 		System.out.print(color.getAnsi("AMARILLO") + "⭐ Introduce tu username: " + color.getAnsi("RESET"));
 		String username = sc.nextLine();
 		if (!existeUsuario(username)) {
