@@ -52,7 +52,7 @@ public class Pajaro extends Mascota {
 	 */
 	public Pajaro(String nombre, String usernameDuenio, String sexo) {
 		super(nombre, usernameDuenio, sexo);
-		this.tipo = "PAJARO";
+		this.tipo = "Pajaro";
 		cargarFrames();
 	}
 	

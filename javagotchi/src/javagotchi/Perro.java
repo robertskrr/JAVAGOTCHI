@@ -50,7 +50,7 @@ public class Perro extends Mascota {
 	 */
 	public Perro(String nombre, String usernameDuenio, String sexo) {
 		super(nombre, usernameDuenio, sexo);
-		this.tipo = "PERRO";
+		this.tipo = "Perro";
 		cargarFrames();
 	}
 	
